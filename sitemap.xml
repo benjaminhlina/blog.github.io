@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-05-27T22:07:11.453Z</lastmod>
+    <loc>https://github.com/benjaminhlina/blog.github.io/about.html</loc>
+    <lastmod>2023-05-27T22:08:17.269Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.benjaminhlina.com/posts/post-with-code/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-05-27T22:07:12.566Z</lastmod>
+    <loc>https://github.com/benjaminhlina/blog.github.io/index.html</loc>
+    <lastmod>2023-05-27T22:08:17.726Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.benjaminhlina.com/posts/post-with-code/test_blog.html</loc>
-    <lastmod>2023-05-27T22:07:13.030Z</lastmod>
+    <loc>https://github.com/benjaminhlina/blog.github.io/posts/post-with-code/shortest_path_example_gdistance.html</loc>
+    <lastmod>2023-05-27T22:08:18.628Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-05-27T22:07:13.346Z</lastmod>
+    <loc>https://github.com/benjaminhlina/blog.github.io/posts/post-with-code/test_blog.html</loc>
+    <lastmod>2023-05-27T22:08:19.259Z</lastmod>
   </url>
 </urlset>
