@@ -1,0 +1,18 @@
+---
+title: "About"
+image: IMG_7613.jpg
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/ben_hlina
+    - icon: wordpress
+      text: Personal Website
+      href: https://benjaminhlina.com
+    - icon: github
+      text: Github
+      href: https://github.com/benjaminhlina
+---
+
+I am a fisheries scientist and programmer currently based at the [Fish Ecology and Conservation Physiology Laboratory](https://www.fecpl.ca/), Carleton University, Ottawa, ON, CA. This blog is an extension of my website and is where I host vignettes mostly in R on a wide range of topics mostly focused on data applications for aquatic scientist.   
