@@ -41,7 +41,7 @@ We will first load all the packages we need, we will use [{gdistance}](https://a
 }
 ```
 
-We will bring bring in our shapefile. For this vignette I will use Big Sissabagama Lake which is the lake I grew up fishing on in Wisconsin, USA. Please replace with the shapefile of your desired body of water.
+We will bring bring in our shapefile. This vignette will use Big Sissabagama Lake as it is the lake I grew up fishing on in Wisconsin, USA. Please replace with the shapefile of your desired body of water.
 
 ```{r eval = FALSE}
 lake <- st_read(dsn = here("Data",
@@ -56,7 +56,7 @@ Important that you convert to the correct UTM zone. For the vignette we are usin
 lake_utm <- st_transform(lake, crs = 32615)
 ```
 
-Create `SpatialPloygonDataFrame` we will use this to create a raster that will be a transition layer for paths to move across. We will use `lake_utm` as we need our raster layer in UTMs.
+Create `SpatialPloygonDataFrame` we will use it to create a raster that will be a transition layer for paths to move across. We will use `lake_utm` as we need our raster layer in UTMs.
 
 ```{r eval = FALSE}
 lake_spd <- as_Spatial(lake_utm)
@@ -70,7 +70,7 @@ rl_sum_sf <- read_rds(here("Data",
                            "rl_sum_sf.rds"))
 ```
 
-Convert to UTMs for plotting purposes make sure you use the correct UTM zone.
+Convert to UTMs for plotting purposes and make sure you use the correct UTM zone.
 
 ```{r eval = FALSE}
 rl_sum_utm <- st_transform(rl_sum_sf, crs = 32615)
@@ -78,7 +78,7 @@ rl_sum_utm <- st_transform(rl_sum_sf, crs = 32615)
 
 ### Step 2: Rasterize shapefile
 
-We will first look at lake `SpatialPointsDataFrame` via plot, then determine the boundary box (bbox) and save it as an object called `ext`.
+We will  look at lake `SpatialPointsDataFrame` via plot, then determine the boundary box (bbox) and save it as an object named `ext`.
 
 ```{r eval = FALSE}
 plot(lake_spd)
@@ -111,7 +111,7 @@ trans <- transition(x = s, transitionFunction = mean, directions = 16)
 
 ### Step 3: Create every combination of paths for every receiver
 
-First we will convert receiver location `sf object` to a `tibble` with each location combination.
+First we will convert receiver location which is a `sf object` to a `tibble` with each location combination.
 
 ```{r eval = FALSE}
 prep_path <- rl_sum_sf %>%
@@ -191,7 +191,7 @@ rec_order_utm <- st_as_sf(rec_order,
 
 ### Step 4: Make shortest paths
 
-We will first split our combinations into individual end points, then we will use `purrr::map()` to iterate over each combination and use the `shortestPath()` function to calculate the shortest path for every combination.
+We will first split our combinations into individual end points, then use `purrr::map()` to iterate over each combination and use the `shortestPath()` function to calculate the shortest path for every combination.
 
 We then will transform the output of this which are `SpatialLinesDataFrame` to `sf objects`. Important note here is to change the CRS to your specific CRS UTM zone.
 
@@ -220,7 +220,7 @@ rec_order_names <- rec_order_utm %>%
   )
 ```
 
-Next we will us `left_join()` from `{dplyr}` to connect each path's metadata.
+Next we will use `left_join()` from `{dplyr}` to connect each path's metadata.
 
 ```{r eval = FALSE}
 rec_dist_sf <- rec_dist_sf %>% 
@@ -230,7 +230,7 @@ rec_dist_sf <- rec_dist_sf %>%
 
 ### Step 6: Plot
 
-We will use `ggplot` to look at our paths. Lets first check if paths go to the right locations. Then we will plot the whole thing
+We will use `ggplot` to look at our paths. Lets first check if paths go to the right locations and then we will plot the whole thing.
 
 ```{r eval = FALSE}
 ggplot() +
@@ -254,6 +254,7 @@ ggplot() +
   theme_void()
 ```
 
-![](4_big_sissabagama_lake_cost_dist.png) From here the `sf object` can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g. interpolated paths).
+![](4_big_sissabagama_lake_cost_dist.png)
+From here the `sf object` can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g. interpolated paths).
 
-Credit: [R. Lennox, PhD, Science Director - OTN](https://oceantrackingnetwork.org/staff/) for the original ideas around this script.
+Credit: [R. Lennox, PhD, Incoming Science Director - OTN](https://oceantrackingnetwork.org/staff/) for the original ideas around this script.
