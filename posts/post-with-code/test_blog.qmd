@@ -7,6 +7,6 @@ categories: [stable isotopes, trophic niche, plotting]
 
 ```{r eval = FALSE}
 test <- 1 + 1 
-print(test)
+
 
 ```
