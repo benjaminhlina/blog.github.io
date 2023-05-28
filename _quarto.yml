@@ -1,6 +1,13 @@
 project:
   type: website
-
+  execute-dir: file
+  resources:
+    - CNAME
+    - audio
+    - video
+    - frm/plans
+    - frm/reports
+    
 website:
   title: "Blog"
   navbar:
