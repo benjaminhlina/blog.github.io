@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.benjaminhlina.com/about.html</loc>
+    <lastmod>2023-05-28T14:49:52.332Z</lastmod>
+  </url>
+  <url>
     <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-05-28T14:46:07.936Z</lastmod>
+    <lastmod>2023-05-28T14:49:52.733Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-05-28T14:46:10.296Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-05-28T14:46:10.696Z</lastmod>
+    <lastmod>2023-05-28T14:49:53.499Z</lastmod>
   </url>
 </urlset>
