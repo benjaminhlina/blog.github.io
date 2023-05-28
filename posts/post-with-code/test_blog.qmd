@@ -4,10 +4,10 @@ author: "Benjamin Hlina"
 date: "2023-05-26"
 categories: [stable isotopes, trophic niche, plotting]
 ---
-``` {r eval = FALSE}
+
+```{r eval = FALSE}
 test <- 1 + 1 
 print(test)
 
 test + 5 
-test + 8 
 ```
