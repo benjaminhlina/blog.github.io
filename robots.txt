@@ -1,1 +1,1 @@
-Sitemap: https://blog.benjaminhlina.com/sitemap.xml
+Sitemap: https://github.com/benjaminhlina/blog.github.io/sitemap.xml
