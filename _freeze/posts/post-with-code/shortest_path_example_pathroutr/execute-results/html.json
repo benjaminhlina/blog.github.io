@@ -1,0 +1,14 @@
+{
+  "hash": "c2cd7bae4e8d7ab533db4ecf7b90321c",
+  "result": {
+    "markdown": "---\ntitle: \"Shortest Paths Within a Boundary - {Pathroutr}\"\nauthor: \"Benjamin Hlina\"\ndate: \"2023-05-28\"\ncategories: [code, telemetry, movement]\n---\n\n\n### Our Objectives:\n\nThe purpose of this vignette is to create the shortest distance among acoustic telemetry receivers within a confined boundary such as a lake, river, delta, or oceanscape. This workflow can be adapted to find the distance between any two points within a confined boundary.\n\nUse this vignette with a bit of caution, as I found some inconsistency with this method when transferring it to other study systems besides this example study system.\n\nNote, this method differs from the {gdistance} method as we are going to create a network graph to move throughout our study system and determine the shortest path. This vignette will start off the same as the {gdistance} method but will differ when creating the shortest paths. \n\n\n\nYou can download and unzip this vignette using the following code:\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"usethis\")\nusethis::use_course(\"https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip\")\n```\n:::\n\n\n### Step 1: Load shapefile and receiver locations\n\nWe will first load all the packages we need, we will use [{pathroutr}](https://jmlondon.github.io/pathroutr/) to find the shortest paths and [{sf}](https://r-spatial.github.io/sf/) to find the distances of those shortest paths.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# ---- load packages ----\n{\n  library(dplyr)\n  library(gdistance)\n  library(ggplot2)\n  library(here)\n  library(purrr)\n  library(raster)\n  library(readr)\n  library(sf)\n  library(sp)\n  library(tibble)\n  library(tidyr)\n  make_line <- function(lon, lat, llon, llat) {\n    st_linestring(matrix(c(lon, llon, lat, llat), 2, 2))\n  }\n}\n```\n:::\n\n\nWe will bring bring in our shapefile. This vignette will use Big Sissabagama Lake as it is the lake I grew up fishing on in Wisconsin, USA. Please replace with the shapefile of your desired body of water.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlake <- st_read(dsn = here(\"Data\",\n                           \"shapefile\",\n                           \".\"),\n                layer = \"sissabagama_lake\")\n```\n:::\n\n\nImportant that you convert to the correct UTM zone. For the vignette we are using UTM zone 15 N. Adjust your UTM zone accordingly.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlake_utm <- st_transform(lake, crs = 32615)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
