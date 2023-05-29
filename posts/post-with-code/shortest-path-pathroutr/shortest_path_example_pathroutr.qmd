@@ -293,7 +293,8 @@ ggplot() +
 ```
 ![](5_big_sissabagama_lake_reroute.png)
 
-### Step 9: Update our paths to not travel across land
+### Step 9: Update our paths to not travel across land 
+
 
 ```{r} 
 
