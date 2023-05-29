@@ -11,13 +11,14 @@ website:
   navbar:
     background: "#28535c"
     right:
-      - about.qmd
+      - about.qmd  
+      - icon: wordpress
+        href: https://benjaminhlina.com
       - icon: github
         href: https://github.com/benjaminhlina
       - icon: twitter
         href: https://twitter.com/ben_hlina
-      - icon: wordpress
-        href: https://benjaminhlina.com
+    
   
 format:
   html:
@@ -25,5 +26,4 @@ format:
     css: styles.css
 execute:
   freeze: auto
-editor: visual
 
