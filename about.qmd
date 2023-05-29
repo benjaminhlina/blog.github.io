@@ -15,4 +15,4 @@ about:
       href: https://github.com/benjaminhlina
 ---
 
-I am a fisheries scientist and programmer currently based at the [Fish Ecology and Conservation Physiology Laboratory](https://www.fecpl.ca/), Carleton University, Ottawa, ON, CA. This blog is an extension of my website and is where I host vignettes mostly in R on a wide range of topics mostly focused on data applications for aquatic scientist.   
+I am a fisheries scientist and programmer currently based at the [Fish Ecology and Conservation Physiology Laboratory](https://www.fecpl.ca/), Carleton University, Ottawa, ON, CA. This blog is an extension of my website and is where I host vignettes on a wide range of topics mostly focused on data applications for aquatic scientist.   
