@@ -83,7 +83,7 @@ rl_sum_utm <- st_transform(rl_sum_sf, crs = 32615)
 
 ### Step 2: Invert shapefile for inland lakes and rivers
 
-`{pathroutr}` was built with the intent of working on oceansacpes where the shapefile is land. For inland bodies of water the shapefile is usually water, therefore to get `{pathroutr}` to function we need to invert our inland lake or river shapefile 
+`{pathroutr}` was built with the intent of working on oceanscapes where the shapefile is land. For inland bodies of water the shapefile is usually water, therefore to get `{pathroutr}` to function we need to invert our inland lake or river shapefile 
 
 First we are going to get the extent of our shapefile which will be in UTMs
 ```{r}
@@ -248,7 +248,7 @@ lake_bar_seg <- get_barrier_segments(trkpts = path_pts,
 
 ### Step 7: Create network graph in our study system 
 
-Create a network graph that is bound by `land_region` and made up  Delaunay triangles which are created in theory by looking directly across the study system until you hit land. 
+Create a network graph that is bound by `land_region` and made up  Delaunay triangles which are created in theory by looking from one point on one shore to directly across the study system until you hit a land object.  
 ```{r}
 vis <- prt_visgraph(barrier = land_region)
 ```
@@ -256,12 +256,13 @@ vis <- prt_visgraph(barrier = land_region)
 We can manipulate our network graph in several ways, the first is supplying the argument `aug_points` with the receiver location `sf object`. By doing so we add in triangles that will directly go to our receiver locations. However if you want to use this feature please install the forked version of [{pathroutr}](https://github.com/benjaminhlina/pathroutr) using the following code, as the original source currently does not support this feature. 
 
 ```{r eval = FALSE}
+install.packages("devtools")
 devtools::install_github("benjaminhlina/pathroutr")
 ```
 Secondly, we can use the argument `centroids` to add additional points within our network. 
 
 Lastly, we can use the argument `buffer` to have paths be buffered from our land masses by a given distance in metres. 
-We can visualize our network by first using the function `activate from `{sfnetworks}`. 
+We can visualize our network by first using the function `activate` from `{sfnetworks}`. 
 ```{r}
 vis_graph_sf <- activate(vis, "edges") %>% 
   st_as_sf()
