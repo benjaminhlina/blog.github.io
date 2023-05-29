@@ -59,22 +59,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,7 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Blog</span>
     </a>
   </div>
@@ -118,8 +118,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
+    <a class="nav-link" href="../../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://benjaminhlina.com" rel="" target=""><i class="bi bi-wordpress" role="img">
+</i> 
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/benjaminhlina" rel="" target=""><i class="bi bi-github" role="img">
@@ -128,11 +133,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/ben_hlina" rel="" target=""><i class="bi bi-twitter" role="img">
-</i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://benjaminhlina.com" rel="" target=""><i class="bi bi-wordpress" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Shortest Paths Within a Boundary</h1>
+      <h1 class="title">Shortest Paths Within a Boundary - {gdistance}</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">code</div>
                 <div class="quarto-category">telemetry</div>
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We will bring bring in our shapefile. For this vignette I will use Big Sissabagama Lake which is the lake I grew up fishing on in Wisconsin, USA. Please replace with the shapefile of your desired body of water.</p>
+<p>We will bring bring in our shapefile. This vignette will use Big Sissabagama Lake as it is the lake I grew up fishing on in Wisconsin, USA. Please replace with the shapefile of your desired body of water.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lake <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="fu">here</span>(<span class="st">"Data"</span>,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"shapefile"</span>,</span>
@@ -229,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lake_utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(lake, <span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create <code>SpatialPloygonDataFrame</code> we will use this to create a raster that will be a transition layer for paths to move across. We will use <code>lake_utm</code> as we need our raster layer in UTMs.</p>
+<p>Create <code>SpatialPloygonDataFrame</code> we will use it to create a raster that will be a transition layer for paths to move across. We will use <code>lake_utm</code> as we need our raster layer in UTMs.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lake_spd <span class="ot">&lt;-</span> <span class="fu">as_Spatial</span>(lake_utm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -239,14 +239,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"receiver locations"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"rl_sum_sf.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Convert to UTMs for plotting purposes make sure you use the correct UTM zone.</p>
+<p>Convert to UTMs for plotting purposes and make sure you use the correct UTM zone.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rl_sum_utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(rl_sum_sf, <span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-rasterize-shapefile" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-rasterize-shapefile">Step 2: Rasterize shapefile</h3>
-<p>We will first look at lake <code>SpatialPointsDataFrame</code> via plot, then determine the boundary box (bbox) and save it as an object called <code>ext</code>.</p>
+<p>We will look at lake <code>SpatialPointsDataFrame</code> via plot, then determine the boundary box (bbox) and save it as an object named <code>ext</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lake_spd)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-3-create-every-combination-of-paths-for-every-receiver" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-create-every-combination-of-paths-for-every-receiver">Step 3: Create every combination of paths for every receiver</h3>
-<p>First we will convert receiver location <code>sf object</code> to a <code>tibble</code> with each location combination.</p>
+<p>First we will convert receiver location which is a <code>sf object</code> to a <code>tibble</code> with each location combination.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prep_path <span class="ot">&lt;-</span> rl_sum_sf <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-4-make-shortest-paths" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-make-shortest-paths">Step 4: Make shortest paths</h3>
-<p>We will first split our combinations into individual end points, then we will use <code>purrr::map()</code> to iterate over each combination and use the <code>shortestPath()</code> function to calculate the shortest path for every combination.</p>
+<p>We will first split our combinations into individual end points, then use <code>purrr::map()</code> to iterate over each combination and use the <code>shortestPath()</code> function to calculate the shortest path for every combination.</p>
 <p>We then will transform the output of this which are <code>SpatialLinesDataFrame</code> to <code>sf objects</code>. Important note here is to change the CRS to your specific CRS UTM zone.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rec_dist_sf <span class="ot">&lt;-</span> rec_order_utm <span class="sc">%&gt;%</span></span>
@@ -370,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">as.character</span>(id)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next we will us <code>left_join()</code> from <code>{dplyr}</code> to connect each path’s metadata.</p>
+<p>Next we will use <code>left_join()</code> from <code>{dplyr}</code> to connect each path’s metadata.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rec_dist_sf <span class="ot">&lt;-</span> rec_dist_sf <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rec_order_names, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">%&gt;%</span> </span>
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-6-plot" class="level3">
 <h3 class="anchored" data-anchor-id="step-6-plot">Step 6: Plot</h3>
-<p>We will use <code>ggplot</code> to look at our paths. Lets first check if paths go to the right locations. Then we will plot the whole thing</p>
+<p>We will use <code>ggplot</code> to look at our paths. Lets first check if paths go to the right locations and then we will plot the whole thing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lake_utm) <span class="sc">+</span></span>
@@ -400,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="4_big_sissabagama_lake_cost_dist.png" class="img-fluid"> From here the <code>sf object</code> can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g.&nbsp;interpolated paths).</p>
-<p>Credit: <a href="https://oceantrackingnetwork.org/staff/">R. Lennox, PhD, Science Director - OTN</a> for the original ideas around this script.</p>
+<p>Credit: <a href="https://oceantrackingnetwork.org/staff/">R. Lennox, PhD, Incoming Science Director - OTN</a> for the original ideas around this script.</p>
 
 
 </section>

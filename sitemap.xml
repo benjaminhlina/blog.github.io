@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-05-28T15:20:21.067Z</lastmod>
+    <lastmod>2023-05-29T14:41:22.656Z</lastmod>
   </url>
   <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-05-28T15:20:22.275Z</lastmod>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
+    <lastmod>2023-05-29T14:41:23.768Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
+    <lastmod>2023-05-29T14:41:24.592Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-05-28T15:20:22.615Z</lastmod>
+    <lastmod>2023-05-29T14:41:24.912Z</lastmod>
   </url>
 </urlset>
