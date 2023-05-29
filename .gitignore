@@ -2,10 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-
 /.quarto/
 /_site/
-
 .DS_Store
-
 output-dir
+detection-range
+niceROVER
