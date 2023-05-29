@@ -1,5 +1,5 @@
 ---
-title: "Shortest Paths Within a Boundary - {Pathroutr}"
+title: "Shortest Paths Within a Boundary - {pathroutr}"
 author: "Benjamin Hlina"
 date: "2023-05-28"
 categories: [code, telemetry, movement]
