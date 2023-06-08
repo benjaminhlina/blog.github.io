@@ -247,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-2-invert-shapefile-for-inland-lakes-and-rivers" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-invert-shapefile-for-inland-lakes-and-rivers">Step 2: Invert shapefile for inland lakes and rivers</h3>
-<p><code>{pathroutr}</code> was built with the intent of working on oceansacpes where the shapefile is land. For inland bodies of water the shapefile is usually water, therefore to get <code>{pathroutr}</code> to function we need to invert our inland lake or river shapefile</p>
+<p><code>{pathroutr}</code> was built with the intent of working on oceanscapes where the shapefile is land. For inland bodies of water the shapefile is usually water, therefore to get <code>{pathroutr}</code> to function we need to invert our inland lake or river shapefile</p>
 <p>First we are going to get the extent of our shapefile which will be in UTMs</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ext <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(lake_utm, <span class="at">crs =</span> <span class="fu">st_crs</span>(lake_utm)) <span class="sc">%&gt;%</span></span>
@@ -396,16 +396,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-7-create-network-graph-in-our-study-system" class="level3">
 <h3 class="anchored" data-anchor-id="step-7-create-network-graph-in-our-study-system">Step 7: Create network graph in our study system</h3>
-<p>Create a network graph that is bound by <code>land_region</code> and made up Delaunay triangles which are created in theory by looking directly across the study system until you hit land.</p>
+<p>Create a network graph that is bound by <code>land_region</code> and made up Delaunay triangles which are created in theory by looking from one point on one shore to directly across the study system until you hit a land object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>vis <span class="ot">&lt;-</span> <span class="fu">prt_visgraph</span>(<span class="at">barrier =</span> land_region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can manipulate our network graph in several ways, the first is supplying the argument <code>aug_points</code> with the receiver location <code>sf object</code>. By doing so we add in triangles that will directly go to our receiver locations. However if you want to use this feature please install the forked version of <a href="https://github.com/benjaminhlina/pathroutr">{pathroutr}</a> using the following code, as the original source currently does not support this feature.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"benjaminhlina/pathroutr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"benjaminhlina/pathroutr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Secondly, we can use the argument <code>centroids</code> to add additional points within our network.</p>
-<p>Lastly, we can use the argument <code>buffer</code> to have paths be buffered from our land masses by a given distance in metres. We can visualize our network by first using the function <code>activate from</code>{sfnetworks}`.</p>
+<p>Lastly, we can use the argument <code>buffer</code> to have paths be buffered from our land masses by a given distance in metres. We can visualize our network by first using the function <code>activate</code> from <code>{sfnetworks}</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>vis_graph_sf <span class="ot">&lt;-</span> <span class="fu">activate</span>(vis, <span class="st">"edges"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
