@@ -261,8 +261,7 @@ devtools::install_github("benjaminhlina/pathroutr")
 ```
 Secondly, we can use the argument `centroids` to add additional points within our network. 
 
-Lastly, we can use the argument `buffer` to have paths be buffered from our land masses by a given distance in metres. 
-We can visualize our network by first using the function `activate` from `{sfnetworks}`. 
+Lastly, we can use the argument `buffer` to have paths be buffered from our land masses by a given distance in metres. We can visualize our network by first using the function `activate` from `{sfnetworks}`. 
 ```{r}
 vis_graph_sf <- activate(vis, "edges") %>% 
   st_as_sf()
