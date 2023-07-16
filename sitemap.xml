@@ -2,26 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-07-16T19:50:34.493Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/detection-range/detection_range_vignette.html</loc>
-    <lastmod>2023-07-16T19:50:34.932Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-07-16T19:50:35.452Z</lastmod>
+    <lastmod>2023-07-16T19:53:20.153Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2023-07-16T19:50:37.401Z</lastmod>
+    <lastmod>2023-07-16T19:53:19.045Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/index.html</loc>
+    <lastmod>2023-07-16T19:53:17.061Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-07-16T19:50:38.181Z</lastmod>
+    <lastmod>2023-07-16T19:53:18.117Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2023-07-16T19:50:39.017Z</lastmod>
+    <lastmod>2023-07-16T19:53:19.869Z</lastmod>
   </url>
 </urlset>
