@@ -527,17 +527,73 @@ ggplot(data = over_stat_df, aes(x = mc_nr_perc)) +
   theme(
     panel.grid = element_blank(), 
     axis.text = element_text(colour = "black"), 
-    legend.position = c(0.86, 0.14),
     legend.background = element_blank(),
     strip.background = element_blank()
-  ) + 
-  guides(
-    fill = guide_legend(ncol = 2)
-  ) + 
+  ) +
   labs(x = paste("Overlap Probability (%)", "\u2013", 
                  "Niche Region Size: 95%"), 
        y = "p(Percent Overlap | X)")
 ```
 
 ### Step 10: Estimate overall niche size 
+We are now going to estimate the overall size of the niche for each posterior sample by using the function `niche.size()`. 
+
+```{r}
+niche_size <- sapply(fish_par, function(spec) {
+  apply(spec$Sigma, 3, niche.size)
+})
+```
+
+We then need to transform `niche_size` into a data fame for visualization and summary statistics. 
+
+```{r}
+niche_size_df <- fish_size %>% 
+  as_tibble() %>% 
+  mutate(
+    id = 1:nrow(.)
+  ) %>% 
+  pivot_longer(
+    cols = -id, 
+    names_to = "species", 
+    values_to = "niche_size"
+  ) %>% 
+  mutate(
+    id = 1:nrow(.), 
+    species = factor(species,
+                   level = c("ARCS", "BDWF", 
+                             "LKWF", "LSCS"))
+  )
+```
+
+We can calculate the mean niche size, standard deviation, and standard error. 
+
+```{r}
+niche_size_mean <- niche_size_df %>% 
+  group_by(species) %>% 
+  summarise(
+    mean_niche = round(mean(niche_size), digits = 2), 
+    sd_niche = round(sd(niche_size), digits = 2), 
+    sem_niche = round(sd(niche_size) / sqrt(n()), digits = 2)
+  )
+```
+
+### Step 11: Plot niche size with [{ggplot}]()
+
+```{r}
+ggplot(data = niche_size_df) + 
+  geom_violin(
+    aes(x = species, y = niche_size),
+    width = 0.2) + 
+  geom_point(data = niche_size_mean, aes(x = species, y = mean_niche)) +
+  geom_errorbar(data = niche_size_mean, aes(x = species, 
+                                            ymin = mean_niche  - sem_niche, 
+                                            ymax = mean_niche  + sem_niche), 
+                width = 0.05) +
+  # scale_y_continuous(breaks = seq(10, 80, 10)) + 
+  theme_bw(base_size = 15) + 
+  theme(panel.grid = element_blank(), 
+        axis.text = element_text(colour = "black")) + 
+  labs(x = "Species", 
+       y = "Niche Size") 
+```
 
