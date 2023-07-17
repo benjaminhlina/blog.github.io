@@ -596,4 +596,4 @@ ggplot(data = niche_size_df) +
   labs(x = "Species", 
        y = "Niche Size") 
 ```
-
+Now that we have our niche sizes determined we can report these within our study. 
