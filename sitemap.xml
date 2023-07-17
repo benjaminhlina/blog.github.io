@@ -2,22 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-07-17T13:56:43.041Z</lastmod>
+    <lastmod>2023-07-17T14:00:08.042Z</lastmod>
   </url>
   <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2023-07-17T13:56:41.945Z</lastmod>
+    <loc>https://blog.benjaminhlina.com/compare-shortest-paths/compare_shortest_paths_methods.html</loc>
+    <lastmod>2023-07-17T14:00:08.473Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/detection-range/detection_range_vignette.html</loc>
+    <lastmod>2023-07-17T14:00:08.952Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-07-17T13:56:39.893Z</lastmod>
+    <lastmod>2023-07-17T14:00:09.656Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/niceROVER/nicheROVER_ggplot.html</loc>
+    <lastmod>2023-07-17T14:00:10.711Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/niceROVER/nicheROVER_ggplot_2.html</loc>
+    <lastmod>2023-07-17T14:00:12.218Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
+    <lastmod>2023-07-17T14:00:13.561Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-07-17T13:56:40.989Z</lastmod>
+    <lastmod>2023-07-17T14:00:14.452Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2023-07-17T13:56:42.753Z</lastmod>
+    <lastmod>2023-07-17T14:00:15.369Z</lastmod>
   </url>
 </urlset>
