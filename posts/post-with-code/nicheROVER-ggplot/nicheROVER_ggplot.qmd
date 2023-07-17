@@ -547,7 +547,7 @@ niche_size <- sapply(fish_par, function(spec) {
 We then need to transform `niche_size` into a data fame for visualization and summary statistics. 
 
 ```{r}
-niche_size_df <- fish_size %>% 
+niche_size_df <- niche_size %>% 
   as_tibble() %>% 
   mutate(
     id = 1:nrow(.)
