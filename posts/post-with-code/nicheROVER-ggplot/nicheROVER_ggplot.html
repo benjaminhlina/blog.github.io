@@ -9,7 +9,7 @@
 <meta name="author" content="Benjamin Hlina">
 <meta name="dcterms.date" content="2023-07-05">
 
-<title>Blog - Trophic Niche Size and Overlap</title>
+<title>Blog - Estimating Trophic Niches - {nicheROVER} and {ggplot2}</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,7 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Trophic Niche Size and Overlap</h1>
+      <h1 class="title">Estimating Trophic Niches - {nicheROVER} and {ggplot2}</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Stable Isotopes</div>
                 <div class="quarto-category">Trophic Dynamics</div>
@@ -182,7 +182,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -197,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-1-bring-in-trophic-niche-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-bring-in-trophic-niche-data">Step 1: Bring in trophic niche data</h3>
 <p>First we will load the necessary packages to preform the analysis and visualization. We will use <a href="https://cran.r-project.org/web/packages/nicheROVER/index.html">{nicheROVER}</a> and <a href="https://cran.r-project.org/web/packages/ellipse/index.html">{ellipse}</a> to preform the analysis. We will use <a href="https://dplyr.tidyverse.org/">{dplyr}</a>, <a href="https://purrr.tidyverse.org/">{purrr}</a>, and <a href="https://tidyr.tidyverse.org/">{tidyr}</a> to manipulate data and iterate processes. Lastly, we will use <a href="https://ggplot2.tidyverse.org/">{ggplot2}</a>, <a href="https://wilkelab.org/ggtext/">{ggtext}</a>, and <a href="https://patchwork.data-imaginist.com/">{patchwork}</a> to plot, add labels and arrange plots.</p>
-<p>I will add that many of the {dplyr} and {tidyr} functions and processes can be replaced using <a href="">{data.table}</a> which is great when working with large datasets.</p>
+<p>I will add that many of the <code>{dplyr}</code> and <code>{tidyr}</code> functions and processes can be replaced using <a href="https://cran.r-project.org/web/packages/data.table/index.html">{data.table}</a> which is great when working with large datasets.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
@@ -304,10 +306,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="step-5-plot-posterior-distrubtion-of-mu-and-sigma-using-ggplot2" class="level3">
-<h3 class="anchored" data-anchor-id="step-5-plot-posterior-distrubtion-of-mu-and-sigma-using-ggplot2">Step 5: Plot posterior distrubtion of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> using <a href="">{ggplot2}</a></h3>
+<h3 class="anchored" data-anchor-id="step-5-plot-posterior-distrubtion-of-mu-and-sigma-using-ggplot2">Step 5: Plot posterior distrubtion of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> using <a href="https://ggplot2.tidyverse.org/">{ggplot2}</a></h3>
 <p>For most plotting within this vignette, I will <code>split()</code> the dataframe by isotope, creating a list that I will then use <code>imap()</code> to iterate over the list to create plots. We will use <code>geom_density()</code> to represent densities for both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span>. Plot objects will then be stored in a list.</p>
-<p>First we will plot <span class="math inline">\(\mu\)</span> for each isotope. We will use <a href="">{patchwork}</a> to configure plots for multi-panel figures. The package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.</p>
-<p>For labeling we are also going to use <code>element_markdown()</code> from <a href="">{ggtext}</a> to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace.</p>
+<p>First we will plot <span class="math inline">\(\mu\)</span> for each isotope. We will use <a href="https://patchwork.data-imaginist.com/">{patchwork}</a> to configure plots for multi-panel figures. The package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.</p>
+<p>For labeling we are also going to use <code>element_markdown()</code> from <a href="https://wilkelab.org/ggtext/">{ggtext}</a> to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace.</p>
 <div class="cell" data-fig.format="svg">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>posterior_plots <span class="ot">&lt;-</span> df_mu_long <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>isotope) <span class="sc">%&gt;%</span></span>
@@ -419,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>all_ellipses <span class="ot">&lt;-</span> <span class="fu">list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We then will use the following <code>for</code> loop. First it subsets <code>mu</code> and <code>sigma</code> objects by species. Then it extracts <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> values for each sample number for each isotope and each species. Then <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> are given to <code>ellipse()</code> from <a href="">{ellipse}</a> that will generate a unique ellipse with a confidence interval of <code>p.ell</code> for each sample (e.g., 1,000 samples). We need to add in dummy variables (<code>ell</code> and <code>post.id</code>) in the first loop that we will add to within the second loop.</p>
+<p>We then will use the following <code>for</code> loop. First it subsets <code>mu</code> and <code>sigma</code> objects by species. Then it extracts <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> values for each sample number for each isotope and each species. Then <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> are given to <code>ellipse()</code> from <a href="https://cran.r-project.org/web/packages/ellipse/index.html">{ellipse}</a> that will generate a unique ellipse with a confidence interval of <code>p.ell</code> for each sample (e.g., 1,000 samples). We need to add in dummy variables (<code>ell</code> and <code>post.id</code>) in the first loop that we will add to within the second loop.</p>
 <p>If you are to have additional isotopes or metrics, you will need to modify this loop to include them. Specifically <code>ellipse()</code> can only work within two-dimensions, not three so you will have to create multiple <code>ellipse()</code> calls for each combination of isotopes or metrics.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(species_name)) {</span>
@@ -602,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="step-9-determine-the-95-niche-similarties-for-each-species" class="level3">
 <h3 class="anchored" data-anchor-id="step-9-determine-the-95-niche-similarties-for-each-species">Step 9: Determine the 95% niche similarties for each species</h3>
-<p>We will use the <code>overlap()</code> function from <a href="">{nicheROVER}</a> to estimate the percentage of similarty among species. We will set overlap to assess based on 95% similarities.</p>
+<p>We will use the <code>overlap()</code> function from <a href="https://cran.r-project.org/web/packages/nicheROVER/index.html">{nicheROVER}</a> to estimate the percentage of similarty among species. We will set overlap to assess based on 95% similarities.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>over_stat <span class="ot">&lt;-</span> <span class="fu">overlap</span>(fish_par, <span class="at">nreps =</span> nsample, <span class="at">nprob =</span> <span class="dv">1000</span>, </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">alpha =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -715,7 +717,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="step-11-plot-niche-size-with-ggplot" class="level3">
-<h3 class="anchored" data-anchor-id="step-11-plot-niche-size-with-ggplot">Step 11: Plot niche size with <a href="">{ggplot}</a></h3>
+<h3 class="anchored" data-anchor-id="step-11-plot-niche-size-with-ggplot">Step 11: Plot niche size with {ggplot}</h3>
+<p>We will now use <code>geom_violin()</code>, <code>geom_point()</code> and <code>geom_errorbar()</code> to plot the distrubition for niche size for each species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> niche_size_df) <span class="sc">+</span> </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(</span>
@@ -726,12 +729,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">ymin =</span> mean_niche  <span class="sc">-</span> sem_niche, </span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">ymax =</span> mean_niche  <span class="sc">+</span> sem_niche), </span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_y_continuous(breaks = seq(10, 80, 10)) + </span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span> </span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>)) <span class="sc">+</span> </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, </span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Niche Size"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span> </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>)) <span class="sc">+</span> </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Niche Size"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
