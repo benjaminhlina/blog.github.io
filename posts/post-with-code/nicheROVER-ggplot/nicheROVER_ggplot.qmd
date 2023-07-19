@@ -1,5 +1,5 @@
 ---
-title: "Trophic Niche Size and Overlap"
+title: "Estimating Trophic Niches - {nicheROVER} and {ggplot2}"
 author: "Benjamin Hlina"
 date: "2023-07-05"
 image: "1_ellispes_density_biplot.png"
@@ -17,7 +17,7 @@ This vignette can be used for additional purposes including estimating niche siz
 ### Step 1: Bring in trophic niche data
 First we will load the necessary packages to preform the analysis and visualization. We will use [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) and [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) to preform the analysis. We will use [{dplyr}](https://dplyr.tidyverse.org/), [{purrr}](https://purrr.tidyverse.org/), and [{tidyr}](https://tidyr.tidyverse.org/) to manipulate data and iterate processes. Lastly, we will use [{ggplot2}](https://ggplot2.tidyverse.org/), [{ggtext}](https://wilkelab.org/ggtext/), and [{patchwork}](https://patchwork.data-imaginist.com/) to plot, add labels and arrange plots.
 
-I will add that many of the {dplyr} and {tidyr} functions and processes can be replaced using [{data.table}]() which is great when working with large datasets.
+I will add that many of the `{dplyr}` and `{tidyr}` functions and processes can be replaced using [{data.table}](https://cran.r-project.org/web/packages/data.table/index.html) which is great when working with large datasets.
 
 ```{r, message = FALSE}
 {
@@ -139,13 +139,13 @@ df_sigma_cn <- df_sigma %>%
 ```
 
 
-### Step 5: Plot posterior distrubtion of $\mu$ and $\Sigma$ using [{ggplot2}]()
+### Step 5: Plot posterior distrubtion of $\mu$ and $\Sigma$ using [{ggplot2}](https://ggplot2.tidyverse.org/)
 
 For most plotting within this vignette, I will `split()` the dataframe by isotope, creating a list that I will then use `imap()` to iterate over the list to create plots. We will use `geom_density()` to represent densities for both $\mu$ and $\Sigma$. Plot objects will then be stored in a list. 
 
-First we will plot $\mu$ for each isotope. We will use [{patchwork}]() to configure plots for multi-panel figures. The package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.
+First we will plot $\mu$ for each isotope. We will use [{patchwork}](https://patchwork.data-imaginist.com/) to configure plots for multi-panel figures. The package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.
 
-For labeling we are also going to use `element_markdown()` from [{ggtext}]() to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace. 
+For labeling we are also going to use `element_markdown()` from [{ggtext}](https://wilkelab.org/ggtext/) to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace. 
 
 ```{r}
 #| out-width: 100%
@@ -265,7 +265,7 @@ Next create an empty list to dump the results of the for loop.
 all_ellipses <- list()
 ```
 
-We then will use the following `for` loop. First it subsets `mu` and `sigma` objects by species. Then it extracts $\mu$ and $\Sigma$ values for each sample number for each isotope and each species. Then $\mu$ and $\Sigma$ are given to `ellipse()` from [{ellipse}]() that will generate a unique ellipse with a confidence interval of `p.ell` for each sample (e.g., 1,000 samples). We need to add in dummy variables (`ell` and `post.id`) in the first loop that we will add to within the second loop. 
+We then will use the following `for` loop. First it subsets `mu` and `sigma` objects by species. Then it extracts $\mu$ and $\Sigma$ values for each sample number for each isotope and each species. Then $\mu$ and $\Sigma$ are given to `ellipse()` from [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) that will generate a unique ellipse with a confidence interval of `p.ell` for each sample (e.g., 1,000 samples). We need to add in dummy variables (`ell` and `post.id`) in the first loop that we will add to within the second loop. 
 
 If you are to have additional isotopes or metrics, you will need to modify this loop to include them. Specifically `ellipse()` can only work within two-dimensions, not three so you will have to create multiple `ellipse()` calls for each combination of isotopes or metrics.
 
@@ -457,7 +457,7 @@ d13c_density + ellipse_plots + iso_biplot + d15n_density +
 
 ### Step 9: Determine the 95% niche similarties for each species 
 
-We will use the `overlap()` function from [{nicheROVER}]() to estimate the percentage of similarty among species. We will set overlap to assess based on 95% similarities. 
+We will use the `overlap()` function from [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) to estimate the percentage of similarty among species. We will set overlap to assess based on 95% similarities. 
 
 ```{r}
 over_stat <- overlap(fish_par, nreps = nsample, nprob = 1000, 
@@ -577,7 +577,9 @@ niche_size_mean <- niche_size_df %>%
   )
 ```
 
-### Step 11: Plot niche size with [{ggplot}]()
+### Step 11: Plot niche size with {ggplot}
+
+We will now use `geom_violin()`, `geom_point()` and `geom_errorbar()` to plot the distrubition for niche size for each species.  
 
 ```{r}
 ggplot(data = niche_size_df) + 
@@ -589,7 +591,6 @@ ggplot(data = niche_size_df) +
                                             ymin = mean_niche  - sem_niche, 
                                             ymax = mean_niche  + sem_niche), 
                 width = 0.05) +
-  # scale_y_continuous(breaks = seq(10, 80, 10)) + 
   theme_bw(base_size = 15) + 
   theme(panel.grid = element_blank(), 
         axis.text = element_text(colour = "black")) + 
