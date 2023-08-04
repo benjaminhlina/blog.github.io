@@ -351,3 +351,4 @@ ggplot() +
   theme_void()
 ```
 ![](7_big_sissabagama_rerouted_paths.png)
+From here the `sf` object can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g. interpolated paths).
