@@ -1,7 +1,7 @@
 ---
 title: "Estimating Trophic Niches - {nicheROVER} and {ggplot2}"
 author: "Benjamin Hlina"
-date: "2023-07-05"
+date: "2023-08-04"
 image: "1_ellispes_density_biplot.png"
 categories: [Stable Isotopes, Trophic Dynamics, Food Webs]
 editor_options: 
@@ -10,9 +10,9 @@ editor_options:
 
 ### Our Objectives:
 
-The purpose of this vignette is to use [{ggplot2}](https://ggplot2.tidyverse.org/) to visualize  estimates of trophic niche size and overlap of multiple freshwater fish. 
+The purpose of this vignette is to use [{ggplot2}](https://ggplot2.tidyverse.org/) to visualize  estimates of trophic niche size and similarities for multiple freshwater fish. 
 
-This vignette can be used for additional purposes including estimating niche size and overlap among different groups of aquatic and/or terrestrial species. Furthermore, niche size and overlap of different behaviour types of the same species indicated through acoustic telemetry can be estimated (e.g., differences in habitat occupancy).
+This vignette can be used for additional purposes including estimating niche size and similarities among different groups of aquatic and/or terrestrial species. Furthermore, niche size and similarities for different behaviours exhibited within a population can be made using behavioural data generated from acoustic telemetry (e.g., differences in habitat occupancy).
 
 ### Step 1: Bring in trophic niche data
 First we will load the necessary packages to preform the analysis and visualization. We will use [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) and [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) to preform the analysis. We will use [{dplyr}](https://dplyr.tidyverse.org/), [{purrr}](https://purrr.tidyverse.org/), and [{tidyr}](https://tidyr.tidyverse.org/) to manipulate data and iterate processes. Lastly, we will use [{ggplot2}](https://ggplot2.tidyverse.org/), [{ggtext}](https://wilkelab.org/ggtext/), and [{patchwork}](https://patchwork.data-imaginist.com/) to plot, add labels and arrange plots.
@@ -597,4 +597,4 @@ ggplot(data = niche_size_df) +
   labs(x = "Species", 
        y = "Niche Size") 
 ```
-Now that we have our niche sizes determined we can report these within our study. 
+Now that we have our niche sizes determined we can make inferences about the species, trophic similarities, and the ecosystem. 
