@@ -8,8 +8,8 @@ project:
     
 website:
   title: "Blog"
-    google-analytics: "G-MGFSRVFVLF"
-    navbar:
+  google-analytics: "G-MGFSRVFVLF"
+  navbar:
     background: "#28535c"
     right:
       - about.qmd  
