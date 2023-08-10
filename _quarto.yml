@@ -8,7 +8,8 @@ project:
     
 website:
   title: "Blog"
-  navbar:
+    google-analytics: "G-MGFSRVFVLF"
+    navbar:
     background: "#28535c"
     right:
       - about.qmd  
@@ -27,9 +28,6 @@ format:
     # toc: true
     # link-external-icon: true
     # link-external-newwindow: true
-website:
-  google-analytics: "G-MGFSRVFVLF"
-
 execute:
   freeze: auto
 
