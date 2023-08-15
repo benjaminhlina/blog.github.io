@@ -14,7 +14,7 @@ The purpose of this vignette is to use [{ggplot2}](https://ggplot2.tidyverse.org
 
 This vignette can be used for additional purposes including estimating niche size and similarities among different groups of aquatic and/or terrestrial species. Furthermore, niche size and similarities for different behaviours exhibited within a population can be made using behavioural data generated from acoustic telemetry (e.g., differences in habitat occupancy).
 
-You can 
+You can download and unzip this vignette using the following code:
 
 ```{r eval = FALSE}
 install.packages("usethis")
