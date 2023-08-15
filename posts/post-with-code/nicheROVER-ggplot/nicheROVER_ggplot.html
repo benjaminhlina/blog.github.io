@@ -202,7 +202,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <h3 class="anchored" data-anchor-id="our-objectives">Our Objectives:</h3>
 <p>The purpose of this vignette is to use <a href="https://ggplot2.tidyverse.org/">{ggplot2}</a> to visualize estimates of trophic niche size and similarities for multiple freshwater fish.</p>
 <p>This vignette can be used for additional purposes including estimating niche size and similarities among different groups of aquatic and/or terrestrial species. Furthermore, niche size and similarities for different behaviours exhibited within a population can be made using behavioural data generated from acoustic telemetry (e.g., differences in habitat occupancy).</p>
-<p>You can download and unzip this vignette using the following code:</p>
+<p>You can</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">"https://github.com/benjaminhlina/nicheROVER-ggplot-vignette/archive/refs/heads/main.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -350,7 +350,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.18</span>, <span class="fl">0.84</span>)) <span class="sc">+</span> </span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  posterior_plots<span class="sc">$</span>d13c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>For labeling purposes we need to add columns that are the element abbreviation and neutron number. I do this by using <code>case_when()</code> which are vectorized if else statements.</p>
@@ -409,7 +409,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>sigma_plots[[<span class="dv">1</span>]] <span class="sc">+</span> </span>
 <span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.82</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 </section>
@@ -610,7 +610,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"a"</span>, </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">tag_suffix =</span> <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 </section>
@@ -686,7 +686,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Niche Region Size: 95%"</span>), </span>
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"p(Percent Overlap | X)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 </section>
@@ -747,7 +747,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, </span>
 <span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Niche Size"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+<p><img src="nicheROVER_ggplot_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Now that we have our niche sizes determined we can make inferences about the species, trophic similarities, and the ecosystem.</p>
