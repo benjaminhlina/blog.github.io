@@ -109,7 +109,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -189,15 +189,29 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#our-objectives" id="toc-our-objectives" class="nav-link active" data-scroll-target="#our-objectives"><span class="header-section-number">0.1</span> Our Objectives:</a></li>
+  <li><a href="#load-shapefile-and-receiver-locations" id="toc-load-shapefile-and-receiver-locations" class="nav-link" data-scroll-target="#load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</a></li>
+  <li><a href="#rasterize-shapefile" id="toc-rasterize-shapefile" class="nav-link" data-scroll-target="#rasterize-shapefile"><span class="header-section-number">0.3</span> Rasterize shapefile</a></li>
+  <li><a href="#create-every-combination-of-paths-for-every-receiver" id="toc-create-every-combination-of-paths-for-every-receiver" class="nav-link" data-scroll-target="#create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.4</span> Create every combination of paths for every receiver</a></li>
+  <li><a href="#make-shortest-paths" id="toc-make-shortest-paths" class="nav-link" data-scroll-target="#make-shortest-paths"><span class="header-section-number">0.5</span> Make shortest paths</a></li>
+  <li><a href="#add-in-metadata-of-paths-start-and-end-desitantions" id="toc-add-in-metadata-of-paths-start-and-end-desitantions" class="nav-link" data-scroll-target="#add-in-metadata-of-paths-start-and-end-desitantions"><span class="header-section-number">0.6</span> Add in metadata of paths start and end desitantions</a></li>
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="header-section-number">0.7</span> Plot</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<section id="our-objectives" class="level3">
-<h3 class="anchored" data-anchor-id="our-objectives">Our Objectives:</h3>
+<section id="our-objectives" class="level3" data-number="0.1">
+<h3 data-number="0.1" class="anchored" data-anchor-id="our-objectives"><span class="header-section-number">0.1</span> Our Objectives:</h3>
 <p>The purpose of this vignette is to create the shortest distance among acoustic telemetry receivers within a confined boundary such as a lake, river, delta, or oceanscape. This workflow can be adapted to find the distance between any two points within a confined boundary.</p>
 <p>You can download and unzip this vignette using the following code:</p>
 <div class="cell">
@@ -205,8 +219,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">"https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-1-load-shapefile-and-receiver-locations" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-load-shapefile-and-receiver-locations">Step 1: Load shapefile and receiver locations</h3>
+<section id="load-shapefile-and-receiver-locations" class="level3" data-number="0.2">
+<h3 data-number="0.2" class="anchored" data-anchor-id="load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</h3>
 <p>We will first load all the packages we need, we will use <a href="https://agrdatasci.github.io/gdistance/">{gdistance}</a> to find the shortest paths, <a href="https://r-spatial.github.io/sf/">{sf}</a> to find the distances of those shortest paths.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- load packages ----</span></span>
@@ -253,8 +267,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rl_sum_utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(rl_sum_sf, <span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-2-rasterize-shapefile" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-rasterize-shapefile">Step 2: Rasterize shapefile</h3>
+<section id="rasterize-shapefile" class="level3" data-number="0.3">
+<h3 data-number="0.3" class="anchored" data-anchor-id="rasterize-shapefile"><span class="header-section-number">0.3</span> Rasterize shapefile</h3>
 <p>We will look at lake <code>SpatialPointsDataFrame</code> via plot, then determine the boundary box (bbox) and save it as an object named <code>ext</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lake_spd)</span>
@@ -278,8 +292,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>trans <span class="ot">&lt;-</span> <span class="fu">transition</span>(<span class="at">x =</span> s, <span class="at">transitionFunction =</span> mean, <span class="at">directions =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-3-create-every-combination-of-paths-for-every-receiver" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-create-every-combination-of-paths-for-every-receiver">Step 3: Create every combination of paths for every receiver</h3>
+<section id="create-every-combination-of-paths-for-every-receiver" class="level3" data-number="0.4">
+<h3 data-number="0.4" class="anchored" data-anchor-id="create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.4</span> Create every combination of paths for every receiver</h3>
 <p>First we will convert receiver location which is a <code>sf object</code> to a <code>tibble</code> with each location combination.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prep_path <span class="ot">&lt;-</span> rl_sum_sf <span class="sc">%&gt;%</span></span>
@@ -296,8 +310,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>lon, <span class="sc">-</span>lat, <span class="sc">-</span>llon, <span class="sc">-</span>llat) <span class="sc">%&gt;%</span></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand</span>(lonlat, llonllat) <span class="sc">%&gt;%</span> <span class="co"># expand for each to and from combo </span></span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(lonlat, <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="st">","</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(llonllat, <span class="fu">c</span>(<span class="st">"llon"</span>, <span class="st">"llat"</span>), <span class="st">","</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, <span class="cf">function</span>(x) <span class="fu">as.numeric</span>(x)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(llonllat, <span class="fu">c</span>(<span class="st">"llon"</span>, <span class="st">"llat"</span>), <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>prep_path</code> has all of the path combinations but we lose the names of the receivers and which paths go from one receiver to another. We are going to add that information back in by creating an object called <code>rec_order</code></p>
 <div class="cell">
@@ -310,25 +323,28 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="co"># remove sf </span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">from =</span> rec_name) <span class="sc">%&gt;%</span>  <span class="co"># Line up from names </span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(from, lon, lat), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple =</span> <span class="st">"all"</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span>  </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    rl_sum_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"X"</span>]</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">to =</span> rec_name,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">llon =</span> lon) <span class="sc">%&gt;%</span> <span class="co"># join for the tos  </span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(to, llon), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"llon"</span>), </span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple =</span> <span class="st">"all"</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">from_to =</span> <span class="fu">paste0</span>(from, <span class="st">"-"</span>, to), </span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.)</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, from, to, from_to, lon, lat, llon, llat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(from, lon, lat) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(lon, lat), as.character)) , <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple =</span> <span class="st">"all"</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    rl_sum_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"X"</span>]</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">to =</span> rec_name,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">llon =</span> lon) <span class="sc">%&gt;%</span> <span class="co"># join for the tos  </span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(to, llon) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">llon =</span> <span class="fu">as.character</span>(llon)), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"llon"</span>), </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple =</span> <span class="st">"all"</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">from_to =</span> <span class="fu">paste0</span>(from, <span class="st">"-"</span>, to), </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, from, to, from_to, lon, lat, llon, llat) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.col =</span> <span class="fu">c</span>(lon, lat, llon, llat), as.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Awesome! We have all of our combinations with their names and we now know which paths go from one receiver to another. The only issue is all of points are in decimal degrees with a CRS of WGS 84, we need to convert this into to UTMs.</p>
 <p>Be sure to choose the correct UTM zone here. This vignette uses UTM zone 15 north but for other uses you will have to change the UTM zone.</p>
@@ -352,8 +368,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-4-make-shortest-paths" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-make-shortest-paths">Step 4: Make shortest paths</h3>
+<section id="make-shortest-paths" class="level3" data-number="0.5">
+<h3 data-number="0.5" class="anchored" data-anchor-id="make-shortest-paths"><span class="header-section-number">0.5</span> Make shortest paths</h3>
 <p>We will first split our combinations into individual end points, then use <code>purrr::map()</code> to iterate over each combination and use the <code>shortestPath()</code> function to calculate the shortest path for every combination.</p>
 <p>We then will transform the output of this which are <code>SpatialLinesDataFrame</code> to <code>sf objects</code>. Important note here is to change the CRS to your specific CRS UTM zone.</p>
 <div class="cell">
@@ -370,8 +386,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-5-add-in-metadata-of-paths-start-and-end-desitantions" class="level3">
-<h3 class="anchored" data-anchor-id="step-5-add-in-metadata-of-paths-start-and-end-desitantions">Step 5: Add in metadata of paths start and end desitantions</h3>
+<section id="add-in-metadata-of-paths-start-and-end-desitantions" class="level3" data-number="0.6">
+<h3 data-number="0.6" class="anchored" data-anchor-id="add-in-metadata-of-paths-start-and-end-desitantions"><span class="header-section-number">0.6</span> Add in metadata of paths start and end desitantions</h3>
 <p>First we will change the <code>id</code> column to a <code>character</code> to be able to line up the data properly.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rec_order_names <span class="ot">&lt;-</span> rec_order_utm <span class="sc">%&gt;%</span> </span>
@@ -386,8 +402,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, from<span class="sc">:</span>llon, cost_dist, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-6-plot" class="level3">
-<h3 class="anchored" data-anchor-id="step-6-plot">Step 6: Plot</h3>
+<section id="plot" class="level3" data-number="0.7">
+<h3 data-number="0.7" class="anchored" data-anchor-id="plot"><span class="header-section-number">0.7</span> Plot</h3>
 <p>We will use <code>ggplot</code> to look at our paths. Lets first check if paths go to the right locations and then we will plot the whole thing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -408,7 +424,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_c</span>(<span class="at">name =</span> <span class="st">"Cost Distance (m)"</span>, <span class="at">option =</span> <span class="st">"B"</span>) <span class="sc">+</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="4_big_sissabagama_lake_cost_dist.png" class="img-fluid"> From here the <code>sf object</code> can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g.&nbsp;interpolated paths).</p>
+<p><img src="4_big_sissabagama_lake_cost_dist.png" class="img-fluid"> From here the <code>sf</code> object can be kept together or ripped apart to determine the distance or path a fish could swim within the system along with a whole host of other potential implications (e.g.&nbsp;interpolated paths).</p>
 <p>Credit: <a href="https://oceantrackingnetwork.org/staff/">R. Lennox, PhD, Incoming Science Director - OTN</a> for the original ideas around this script.</p>
 
 
