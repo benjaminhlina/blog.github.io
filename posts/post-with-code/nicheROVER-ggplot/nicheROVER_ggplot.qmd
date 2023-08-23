@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: inline
 ---
 
-### Our Objectives:
+### Our Objectives
 
 The purpose of this vignette is to use [{ggplot2}](https://ggplot2.tidyverse.org/) to visualize  estimates of trophic niche size and similarities for multiple freshwater fish. 
 

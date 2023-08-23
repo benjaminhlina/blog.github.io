@@ -8,7 +8,7 @@ execute:
   eval: FALSE
 ---
 
-### Our Objectives:
+### Our Objectives
 
 The purpose of this vignette is to create the shortest distance among acoustic telemetry receivers within a confined boundary such as a lake, river, delta, or oceanscape. This workflow can be adapted to find the distance between any two points within a confined boundary.
 
