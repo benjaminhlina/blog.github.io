@@ -25,7 +25,10 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    # toc: true
+    toc: true
+    toc-title: "Contents"
+    number-sections: true
+    number-offset: 1
     # link-external-icon: true
     # link-external-newwindow: true
 execute:

@@ -19,7 +19,7 @@ install.packages("usethis")
 usethis::use_course("https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip")
 ```
 
-### Step 1: Load shapefile and receiver locations
+### Load shapefile and receiver locations
 
 We will first load all the packages we need, we will use [{gdistance}](https://agrdatasci.github.io/gdistance/) to find the shortest paths, [{sf}](https://r-spatial.github.io/sf/) to find the distances of those shortest paths.
 
@@ -78,7 +78,7 @@ Convert to UTMs for plotting purposes and make sure you use the correct UTM zone
 rl_sum_utm <- st_transform(rl_sum_sf, crs = 32615)
 ```
 
-### Step 2: Rasterize shapefile
+### Rasterize shapefile
 
 We will  look at lake `SpatialPointsDataFrame` via plot, then determine the boundary box (bbox) and save it as an object named `ext`.
 
@@ -111,7 +111,7 @@ trans <- transition(x = s, transitionFunction = mean, directions = 16)
 
 ```
 
-### Step 3: Create every combination of paths for every receiver
+### Create every combination of paths for every receiver
 
 First we will convert receiver location which is a `sf object` to a `tibble` with each location combination.
 
@@ -130,8 +130,7 @@ prep_path <- rl_sum_sf %>%
   dplyr::select(-lon, -lat, -llon, -llat) %>%
   expand(lonlat, llonllat) %>% # expand for each to and from combo 
   separate(lonlat, c("lon", "lat"), ",") %>%
-  separate(llonllat, c("llon", "llat"), ",") %>%
-  mutate_if(is.character, function(x) as.numeric(x)) 
+  separate(llonllat, c("llon", "llat"), ",")
 ```
 
 `prep_path` has all of the path combinations but we lose the names of the receivers and which paths go from one receiver to another. We are going to add that information back in by creating an object called `rec_order`
@@ -146,7 +145,8 @@ rec_order <- prep_path %>%
       ) %>% 
       st_drop_geometry() %>% # remove sf 
       rename(from = rec_name) %>%  # Line up from names 
-      dplyr::select(from, lon, lat), by = c("lon", "lat"), 
+      dplyr::select(from, lon, lat) %>% 
+      mutate(across(.cols = c(lon, lat), as.character)) , by = c("lon", "lat"), 
     multiple = "all"
   ) %>%  
   left_join(
@@ -157,14 +157,16 @@ rec_order <- prep_path %>%
       st_drop_geometry() %>% 
       rename(to = rec_name,
              llon = lon) %>% # join for the tos  
-      dplyr::select(to, llon), by = c("llon"), 
+      dplyr::select(to, llon) %>% 
+      mutate(llon = as.character(llon)), by = c("llon"), 
     multiple = "all"
   ) %>% 
   mutate(
     from_to = paste0(from, "-", to), 
     id = 1:nrow(.)
   ) %>% 
-  dplyr::select(id, from, to, from_to, lon, lat, llon, llat)
+  dplyr::select(id, from, to, from_to, lon, lat, llon, llat) %>% 
+  mutate(across(.col = c(lon, lat, llon, llat), as.numeric))
 ```
 
 Awesome! We have all of our combinations with their names and we now know which paths go from one receiver to another. The only issue is all of points are in decimal degrees with a CRS of WGS 84, we need to convert this into to UTMs.
@@ -191,7 +193,7 @@ rec_order_utm <- st_as_sf(rec_order,
   st_drop_geometry()
 ```
 
-### Step 4: Make shortest paths
+### Make shortest paths
 
 We will first split our combinations into individual end points, then use `purrr::map()` to iterate over each combination and use the `shortestPath()` function to calculate the shortest path for every combination.
 
@@ -211,7 +213,7 @@ rec_dist_sf <- rec_order_utm %>%
   )
 ```
 
-### Step 5: Add in metadata of paths start and end desitantions
+### Add in metadata of paths start and end desitantions
 
 First we will change the `id` column to a `character` to be able to line up the data properly.
 
@@ -230,7 +232,7 @@ rec_dist_sf <- rec_dist_sf %>%
   dplyr::select(id, from:llon, cost_dist, geometry)
 ```
 
-### Step 6: Plot
+### Plot
 
 We will use `ggplot` to look at our paths. Lets first check if paths go to the right locations and then we will plot the whole thing.
 

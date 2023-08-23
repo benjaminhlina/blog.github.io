@@ -23,7 +23,7 @@ usethis::use_course("https://github.com/benjaminhlina/nicheROVER-ggplot-vignette
 
 
 
-### Step 1: Bring in trophic niche data
+### Bring in trophic niche data
 First we will load the necessary packages to preform the analysis and visualization. We will use [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) and [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) to preform the analysis. We will use [{dplyr}](https://dplyr.tidyverse.org/), [{purrr}](https://purrr.tidyverse.org/), and [{tidyr}](https://tidyr.tidyverse.org/) to manipulate data and iterate processes. Lastly, we will use [{ggplot2}](https://ggplot2.tidyverse.org/), [{ggtext}](https://wilkelab.org/ggtext/), and [{patchwork}](https://patchwork.data-imaginist.com/) to plot, add labels and arrange plots.
 
 I will add that many of the `{dplyr}` and `{tidyr}` functions and processes can be replaced using [{data.table}](https://cran.r-project.org/web/packages/data.table/index.html) which is great when working with large datasets.
@@ -56,7 +56,7 @@ df <- fish %>%
 
 If there are any isotopic values that did not run and are `NA`, they will need to be removed because `{nicheROVER}`'s functions will not accommodate values of `NA`.
 
-### Step 2: Estimate posterior distribution with Normal-Inverse-Wishart (NIW) priors.
+### Estimate posterior distribution with Normal-Inverse-Wishart (NIW) priors.
 
 We will take 1,000 posterior samples for each group. You can change this but suggest nothing less than 1,000. 
 
@@ -73,7 +73,7 @@ fish_par <- df %>%
   map(~niw.post(nsample = nsample, X = .))
 ```
 
-### Step 3: Extract $\mu$ values from list object containing posteriors 
+### Extract $\mu$ values  
 
 We will use a combination of `map()` and `pluck()` to first extract the list of posteriors for $\mu$. We will extract each vector object for $\mu$ of each species using `imap()` and convert them into a `tibble`.
 
@@ -118,7 +118,7 @@ df_mu_long <- df_mu %>%
   )
 ```
 
-### Step 4: Extract $\Sigma$ values from list object containing posteriors 
+### Extract $\Sigma$ values 
 We will use a combination of `map()` and `pluck()` to first extract the list of posteriors for $\Sigma$. We will extract each vector object from each the $\Sigma$ of each species using `imap()` and convert them into a `tibble`.
 
 We will manipulate `df_sigma` from wide to long format. When doing so we create two columns, `id` and `isotope`, that identify the two isotopes that $\Sigma$ is being estimated for. 
@@ -148,7 +148,7 @@ df_sigma_cn <- df_sigma %>%
 ```
 
 
-### Step 5: Plot posterior distrubtion of $\mu$ and $\Sigma$ using [{ggplot2}](https://ggplot2.tidyverse.org/)
+### Plot posterior distrubtion of $\mu$ and $\Sigma$
 
 For most plotting within this vignette, I will `split()` the dataframe by isotope, creating a list that I will then use `imap()` to iterate over the list to create plots. We will use `geom_density()` to represent densities for both $\mu$ and $\Sigma$. Plot objects will then be stored in a list. 
 
@@ -246,7 +246,7 @@ sigma_plots <- df_sigma_cn %>%
 sigma_plots[[1]] + 
   theme(legend.position = c(0.1, 0.82))
 ```
-### Step 6: Estimate niche ellipse 
+### Estimate niche ellipse 
 
 We  need to manipulate `df_sigma` back to wide format for ellipses. 
 
@@ -347,7 +347,7 @@ ellipse_df %>%
   ungroup() %>% 
   unnest(cols = c(data)) -> random_ellipse 
 ```
-### Step 7: Plot ellipses, densities of each istope, and isotope biplot 
+###Plot ellipses, densities of each istope, and isotope biplot 
 
 We will first plot the ellipse for each species 
 ```{r}
@@ -450,7 +450,7 @@ iso_biplot <- ggplot() +
        y = expression(paste(delta ^ 15, "N")))
 ```
 
-### Step 8: Use {patchwork} to make ellipse, density, and biplots into a paneled figure. 
+### Use {patchwork} to make ellipse, density, and biplots into a paneled figure. 
 
 
 
@@ -464,7 +464,7 @@ d13c_density + ellipse_plots + iso_biplot + d15n_density +
                   tag_suffix = ")")
 ```
 
-### Step 9: Determine the 95% niche similarties for each species 
+### Determine the 95% niche similarties for each species 
 
 We will use the `overlap()` function from [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) to estimate the percentage of similarty among species. We will set overlap to assess based on 95% similarities. 
 
@@ -544,7 +544,7 @@ ggplot(data = over_stat_df, aes(x = mc_nr_perc)) +
        y = "p(Percent Overlap | X)")
 ```
 
-### Step 10: Estimate overall niche size 
+###Estimate overall niche size 
 We are now going to estimate the overall size of the niche for each posterior sample by using the function `niche.size()`. 
 
 ```{r}
@@ -586,7 +586,7 @@ niche_size_mean <- niche_size_df %>%
   )
 ```
 
-### Step 11: Plot niche size with {ggplot}
+### Plot niche size 
 
 We will now use `geom_violin()`, `geom_point()` and `geom_errorbar()` to plot the distrubition for niche size for each species.  
 
