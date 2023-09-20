@@ -19,17 +19,18 @@ website:
         href: https://github.com/benjaminhlina
       - icon: twitter
         href: https://twitter.com/ben_hlina
+      - icon: mortarboard
+        href: https://scholar.google.com/citations?user=upRdN9AAAAAJ&hl=en 
     
   
 format:
   html:
     theme: cosmo
     css: styles.css
-    toc: true
-    toc-title: "Contents"
-    number-sections: true
-    number-offset: 1
-    number-depth: 3
+    # toc: true
+    # toc-title: "Contents"
+    # number-sections: true
+    # number-offset: 1
     # link-external-icon: true
     # link-external-newwindow: true
 execute:
