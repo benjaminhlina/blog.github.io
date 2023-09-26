@@ -109,7 +109,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -194,29 +194,15 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#our-objectives" id="toc-our-objectives" class="nav-link active" data-scroll-target="#our-objectives"><span class="header-section-number">0.1</span> Our Objectives</a></li>
-  <li><a href="#load-shapefile-and-receiver-locations" id="toc-load-shapefile-and-receiver-locations" class="nav-link" data-scroll-target="#load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</a></li>
-  <li><a href="#rasterize-shapefile" id="toc-rasterize-shapefile" class="nav-link" data-scroll-target="#rasterize-shapefile"><span class="header-section-number">0.3</span> Rasterize shapefile</a></li>
-  <li><a href="#create-every-combination-of-paths-for-every-receiver" id="toc-create-every-combination-of-paths-for-every-receiver" class="nav-link" data-scroll-target="#create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.4</span> Create every combination of paths for every receiver</a></li>
-  <li><a href="#make-shortest-paths" id="toc-make-shortest-paths" class="nav-link" data-scroll-target="#make-shortest-paths"><span class="header-section-number">0.5</span> Make shortest paths</a></li>
-  <li><a href="#add-in-metadata-of-paths-start-and-end-desitantions" id="toc-add-in-metadata-of-paths-start-and-end-desitantions" class="nav-link" data-scroll-target="#add-in-metadata-of-paths-start-and-end-desitantions"><span class="header-section-number">0.6</span> Add in metadata of paths start and end desitantions</a></li>
-  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="header-section-number">0.7</span> Plot</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<section id="our-objectives" class="level3" data-number="0.1">
-<h3 data-number="0.1" class="anchored" data-anchor-id="our-objectives"><span class="header-section-number">0.1</span> Our Objectives</h3>
+<section id="our-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="our-objectives">Our Objectives</h3>
 <p>The purpose of this vignette is to create the shortest distance among acoustic telemetry receivers within a confined boundary such as a lake, river, delta, or oceanscape. This workflow can be adapted to find the distance between any two points within a confined boundary.</p>
 <p>You can download and unzip this vignette using the following code:</p>
 <div class="cell">
@@ -224,8 +210,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">"https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-shapefile-and-receiver-locations" class="level3" data-number="0.2">
-<h3 data-number="0.2" class="anchored" data-anchor-id="load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</h3>
+<section id="load-shapefile-and-receiver-locations" class="level3">
+<h3 class="anchored" data-anchor-id="load-shapefile-and-receiver-locations">Load shapefile and receiver locations</h3>
 <p>We will first load all the packages we need, we will use <a href="https://agrdatasci.github.io/gdistance/">{gdistance}</a> to find the shortest paths, <a href="https://r-spatial.github.io/sf/">{sf}</a> to find the distances of those shortest paths.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- load packages ----</span></span>
@@ -272,8 +258,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rl_sum_utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(rl_sum_sf, <span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="rasterize-shapefile" class="level3" data-number="0.3">
-<h3 data-number="0.3" class="anchored" data-anchor-id="rasterize-shapefile"><span class="header-section-number">0.3</span> Rasterize shapefile</h3>
+<section id="rasterize-shapefile" class="level3">
+<h3 class="anchored" data-anchor-id="rasterize-shapefile">Rasterize shapefile</h3>
 <p>We will look at lake <code>SpatialPointsDataFrame</code> via plot, then determine the boundary box (bbox) and save it as an object named <code>ext</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lake_spd)</span>
@@ -297,8 +283,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>trans <span class="ot">&lt;-</span> <span class="fu">transition</span>(<span class="at">x =</span> s, <span class="at">transitionFunction =</span> mean, <span class="at">directions =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-every-combination-of-paths-for-every-receiver" class="level3" data-number="0.4">
-<h3 data-number="0.4" class="anchored" data-anchor-id="create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.4</span> Create every combination of paths for every receiver</h3>
+<section id="create-every-combination-of-paths-for-every-receiver" class="level3">
+<h3 class="anchored" data-anchor-id="create-every-combination-of-paths-for-every-receiver">Create every combination of paths for every receiver</h3>
 <p>First we will convert receiver location which is a <code>sf object</code> to a <code>tibble</code> with each location combination.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prep_path <span class="ot">&lt;-</span> rl_sum_sf <span class="sc">%&gt;%</span></span>
@@ -373,8 +359,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="make-shortest-paths" class="level3" data-number="0.5">
-<h3 data-number="0.5" class="anchored" data-anchor-id="make-shortest-paths"><span class="header-section-number">0.5</span> Make shortest paths</h3>
+<section id="make-shortest-paths" class="level3">
+<h3 class="anchored" data-anchor-id="make-shortest-paths">Make shortest paths</h3>
 <p>We will first split our combinations into individual end points, then use <code>purrr::map()</code> to iterate over each combination and use the <code>shortestPath()</code> function to calculate the shortest path for every combination.</p>
 <p>We then will transform the output of this which are <code>SpatialLinesDataFrame</code> to <code>sf objects</code>. Important note here is to change the CRS to your specific CRS UTM zone.</p>
 <div class="cell">
@@ -391,8 +377,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="add-in-metadata-of-paths-start-and-end-desitantions" class="level3" data-number="0.6">
-<h3 data-number="0.6" class="anchored" data-anchor-id="add-in-metadata-of-paths-start-and-end-desitantions"><span class="header-section-number">0.6</span> Add in metadata of paths start and end desitantions</h3>
+<section id="add-in-metadata-of-paths-start-and-end-desitantions" class="level3">
+<h3 class="anchored" data-anchor-id="add-in-metadata-of-paths-start-and-end-desitantions">Add in metadata of paths start and end desitantions</h3>
 <p>First we will change the <code>id</code> column to a <code>character</code> to be able to line up the data properly.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rec_order_names <span class="ot">&lt;-</span> rec_order_utm <span class="sc">%&gt;%</span> </span>
@@ -407,8 +393,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, from<span class="sc">:</span>llon, cost_dist, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="plot" class="level3" data-number="0.7">
-<h3 data-number="0.7" class="anchored" data-anchor-id="plot"><span class="header-section-number">0.7</span> Plot</h3>
+<section id="plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot">Plot</h3>
 <p>We will use <code>ggplot</code> to look at our paths. Lets first check if paths go to the right locations and then we will plot the whole thing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
