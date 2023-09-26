@@ -109,7 +109,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -194,15 +194,34 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#our-objectives" id="toc-our-objectives" class="nav-link active" data-scroll-target="#our-objectives"><span class="header-section-number">0.1</span> Our Objectives</a></li>
+  <li><a href="#load-shapefile-and-receiver-locations" id="toc-load-shapefile-and-receiver-locations" class="nav-link" data-scroll-target="#load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</a></li>
+  <li><a href="#invert-shapefile-for-inland-lakes-and-rivers" id="toc-invert-shapefile-for-inland-lakes-and-rivers" class="nav-link" data-scroll-target="#invert-shapefile-for-inland-lakes-and-rivers"><span class="header-section-number">0.3</span> Invert shapefile for inland lakes and rivers</a></li>
+  <li><a href="#create-land-region-to-build-our-network" id="toc-create-land-region-to-build-our-network" class="nav-link" data-scroll-target="#create-land-region-to-build-our-network"><span class="header-section-number">0.4</span> Create land region to build our network</a></li>
+  <li><a href="#create-every-combination-of-paths-for-every-receiver" id="toc-create-every-combination-of-paths-for-every-receiver" class="nav-link" data-scroll-target="#create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.5</span> Create every combination of paths for every receiver</a></li>
+  <li><a href="#sample-points-along-path-for-pathroutr-to-reroute" id="toc-sample-points-along-path-for-pathroutr-to-reroute" class="nav-link" data-scroll-target="#sample-points-along-path-for-pathroutr-to-reroute"><span class="header-section-number">0.6</span> Sample points along path for {pathroutr} to reroute</a></li>
+  <li><a href="#use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake." id="toc-use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake." class="nav-link" data-scroll-target="#use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake."><span class="header-section-number">0.7</span> Use <code>get_barrier_segments</code> from <code>{pathroutr}</code> to id path points that travel across landmasses in our lake.</a></li>
+  <li><a href="#create-network-graph-in-our-study-system" id="toc-create-network-graph-in-our-study-system" class="nav-link" data-scroll-target="#create-network-graph-in-our-study-system"><span class="header-section-number">0.8</span> Create network graph in our study system</a></li>
+  <li><a href="#create-rerouted-sections" id="toc-create-rerouted-sections" class="nav-link" data-scroll-target="#create-rerouted-sections"><span class="header-section-number">0.9</span> Create rerouted sections</a></li>
+  <li><a href="#update-our-paths-to-not-travel-across-land" id="toc-update-our-paths-to-not-travel-across-land" class="nav-link" data-scroll-target="#update-our-paths-to-not-travel-across-land"><span class="header-section-number">0.10</span> Update our paths to not travel across land</a></li>
+  <li><a href="#convert-points-to-linestrings-to-determine-distance" id="toc-convert-points-to-linestrings-to-determine-distance" class="nav-link" data-scroll-target="#convert-points-to-linestrings-to-determine-distance"><span class="header-section-number">0.11</span> Convert points to linestrings to determine distance</a></li>
+  <li><a href="#visualize-our-paths" id="toc-visualize-our-paths" class="nav-link" data-scroll-target="#visualize-our-paths"><span class="header-section-number">0.12</span> Visualize our paths</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<section id="our-objectives" class="level3">
-<h3 class="anchored" data-anchor-id="our-objectives">Our Objectives</h3>
+<section id="our-objectives" class="level3" data-number="0.1">
+<h3 data-number="0.1" class="anchored" data-anchor-id="our-objectives"><span class="header-section-number">0.1</span> Our Objectives</h3>
 <p>The purpose of this vignette is to create the shortest distance among acoustic telemetry receivers within a confined boundary such as a lake, river, delta, or oceanscape. This workflow can be adapted to find the distance between any two points within a confined boundary.</p>
 <p>Use this vignette with a bit of caution, as I found some inconsistency with this method when transferring it to other study systems besides this example study system.</p>
 <p>Note, this method differs from the {gdistance} method as we are going to create a network graph to move throughout our study system and determine the shortest path. This vignette will start off the same as the {gdistance} method but will differ when creating the shortest paths.</p>
@@ -212,8 +231,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">"https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-shapefile-and-receiver-locations" class="level3">
-<h3 class="anchored" data-anchor-id="load-shapefile-and-receiver-locations">Load shapefile and receiver locations</h3>
+<section id="load-shapefile-and-receiver-locations" class="level3" data-number="0.2">
+<h3 data-number="0.2" class="anchored" data-anchor-id="load-shapefile-and-receiver-locations"><span class="header-section-number">0.2</span> Load shapefile and receiver locations</h3>
 <p>We will first load all the packages we need, we will use <a href="https://jmlondon.github.io/pathroutr/">{pathroutr}</a> to find the shortest paths using <a href="https://luukvdmeer.github.io/sfnetworks/">{sfnetworks}</a> and <a href="https://r-spatial.github.io/sf/">{sf}</a> to find the distances of those shortest paths.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- load packages ----</span></span>
@@ -259,8 +278,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rl_sum_utm <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(rl_sum_sf, <span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="invert-shapefile-for-inland-lakes-and-rivers" class="level3">
-<h3 class="anchored" data-anchor-id="invert-shapefile-for-inland-lakes-and-rivers">Invert shapefile for inland lakes and rivers</h3>
+<section id="invert-shapefile-for-inland-lakes-and-rivers" class="level3" data-number="0.3">
+<h3 data-number="0.3" class="anchored" data-anchor-id="invert-shapefile-for-inland-lakes-and-rivers"><span class="header-section-number">0.3</span> Invert shapefile for inland lakes and rivers</h3>
 <p><code>{pathroutr}</code> was built with the intent of working on oceanscapes where the shapefile is land. For inland bodies of water the shapefile is usually water, therefore to get <code>{pathroutr}</code> to function we need to invert our inland lake or river shapefile</p>
 <p>First we are going to get the extent of our shapefile which will be in UTMs</p>
 <div class="cell">
@@ -280,8 +299,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </div>
 <p><img src="1_big_sissabagama_lake_inverse.png" class="img-fluid"></p>
 </section>
-<section id="create-land-region-to-build-our-network" class="level3">
-<h3 class="anchored" data-anchor-id="create-land-region-to-build-our-network">Create land region to build our network</h3>
+<section id="create-land-region-to-build-our-network" class="level3" data-number="0.4">
+<h3 data-number="0.4" class="anchored" data-anchor-id="create-land-region-to-build-our-network"><span class="header-section-number">0.4</span> Create land region to build our network</h3>
 <p>We need to create a buffered land region to use as a barrier. Within <code>st_buffer()</code> we will need to adjust <code>dist</code> argument to change the buffer distance to be adequate for the study system. For this example we will use 650 m.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>land_region <span class="ot">&lt;-</span> rl_sum_utm <span class="sc">%&gt;%</span> </span>
@@ -299,8 +318,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </div>
 <p><img src="2_big_sissabagama_lake_buffer.png" class="img-fluid"></p>
 </section>
-<section id="create-every-combination-of-paths-for-every-receiver" class="level3">
-<h3 class="anchored" data-anchor-id="create-every-combination-of-paths-for-every-receiver">Create every combination of paths for every receiver</h3>
+<section id="create-every-combination-of-paths-for-every-receiver" class="level3" data-number="0.5">
+<h3 data-number="0.5" class="anchored" data-anchor-id="create-every-combination-of-paths-for-every-receiver"><span class="header-section-number">0.5</span> Create every combination of paths for every receiver</h3>
 <p>First we will convert receiver location which is a <code>sf object</code> to a <code>tibble</code> with each location combination.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prep_path <span class="ot">&lt;-</span> rl_sum_sf <span class="sc">%&gt;%</span></span>
@@ -380,8 +399,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(from, to)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sample-points-along-path-for-pathroutr-to-reroute" class="level3">
-<h3 class="anchored" data-anchor-id="sample-points-along-path-for-pathroutr-to-reroute">Sample points along path for {pathroutr} to reroute</h3>
+<section id="sample-points-along-path-for-pathroutr-to-reroute" class="level3" data-number="0.6">
+<h3 data-number="0.6" class="anchored" data-anchor-id="sample-points-along-path-for-pathroutr-to-reroute"><span class="header-section-number">0.6</span> Sample points along path for {pathroutr} to reroute</h3>
 <p>Now that we have our paths we need to sample along the <code>LINESTRING</code> to get paths to reroute. I choose to have a sample distance of 5 m but you can change this depending on the study site.</p>
 <p>We need to cast our sampled points as <code>MULTIPOINT</code> object for <code>{pathroutr}</code> to sample</p>
 <div class="cell">
@@ -405,15 +424,15 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </div>
 <p><img src="3_big_sissabagama_lake_paths.png" class="img-fluid"></p>
 </section>
-<section id="use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake." class="level3">
-<h3 class="anchored" data-anchor-id="use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake.">Use <code>get_barrier_segments</code> from <code>{pathroutr}</code> to id path points that travel across landmasses in our lake.</h3>
+<section id="use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake." class="level3" data-number="0.7">
+<h3 data-number="0.7" class="anchored" data-anchor-id="use-get_barrier_segments-from-pathroutr-to-id-path-points-that-travel-across-landmasses-in-our-lake."><span class="header-section-number">0.7</span> Use <code>get_barrier_segments</code> from <code>{pathroutr}</code> to id path points that travel across landmasses in our lake.</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lake_bar_seg <span class="ot">&lt;-</span> <span class="fu">get_barrier_segments</span>(<span class="at">trkpts =</span> path_pts,</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">barrier =</span>  land_region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-network-graph-in-our-study-system" class="level3">
-<h3 class="anchored" data-anchor-id="create-network-graph-in-our-study-system">Create network graph in our study system</h3>
+<section id="create-network-graph-in-our-study-system" class="level3" data-number="0.8">
+<h3 data-number="0.8" class="anchored" data-anchor-id="create-network-graph-in-our-study-system"><span class="header-section-number">0.8</span> Create network graph in our study system</h3>
 <p>Create a network graph that is bound by <code>land_region</code> and made up Delaunay triangles which are created in theory by looking from one point on one shore to directly across the study system until you hit a land object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>vis <span class="ot">&lt;-</span> <span class="fu">prt_visgraph</span>(<span class="at">barrier =</span> land_region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -435,8 +454,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </div>
 <p><img src="4_big_sissabagama_lake_network.png" class="img-fluid"></p>
 </section>
-<section id="create-rerouted-sections" class="level3">
-<h3 class="anchored" data-anchor-id="create-rerouted-sections">Create rerouted sections</h3>
+<section id="create-rerouted-sections" class="level3" data-number="0.9">
+<h3 data-number="0.9" class="anchored" data-anchor-id="create-rerouted-sections"><span class="header-section-number">0.9</span> Create rerouted sections</h3>
 <p>Using <code>prt_shortestpath</code> we will reroute sections that go across land using our created network.</p>
 <div class="cell" data-evalu="false">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>segs_tbl <span class="ot">&lt;-</span> <span class="fu">prt_shortpath</span>(lake_bar_seg, vis, <span class="at">blend =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -452,16 +471,16 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </div>
 <p><img src="5_big_sissabagama_lake_reroute.png" class="img-fluid"></p>
 </section>
-<section id="update-our-paths-to-not-travel-across-land" class="level3">
-<h3 class="anchored" data-anchor-id="update-our-paths-to-not-travel-across-land">Update our paths to not travel across land</h3>
+<section id="update-our-paths-to-not-travel-across-land" class="level3" data-number="0.10">
+<h3 data-number="0.10" class="anchored" data-anchor-id="update-our-paths-to-not-travel-across-land"><span class="header-section-number">0.10</span> Update our paths to not travel across land</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>track_pts_fix <span class="ot">&lt;-</span> <span class="fu">prt_reroute</span>(path_pts, land_region, vis)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>track_pts_fix <span class="ot">&lt;-</span> <span class="fu">prt_update_points</span>(track_pts_fix, path_pts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="convert-points-to-linestrings-to-determine-distance" class="level3">
-<h3 class="anchored" data-anchor-id="convert-points-to-linestrings-to-determine-distance">Convert points to linestrings to determine distance</h3>
+<section id="convert-points-to-linestrings-to-determine-distance" class="level3" data-number="0.11">
+<h3 data-number="0.11" class="anchored" data-anchor-id="convert-points-to-linestrings-to-determine-distance"><span class="header-section-number">0.11</span> Convert points to linestrings to determine distance</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>track_pts_fixed <span class="ot">&lt;-</span> track_pts_fix <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(from_to) <span class="sc">%&gt;%</span> </span>
@@ -477,8 +496,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(from, to, from_to, cost_dist_m, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="visualize-our-paths" class="level3">
-<h3 class="anchored" data-anchor-id="visualize-our-paths">Visualize our paths</h3>
+<section id="visualize-our-paths" class="level3" data-number="0.12">
+<h3 data-number="0.12" class="anchored" data-anchor-id="visualize-our-paths"><span class="header-section-number">0.12</span> Visualize our paths</h3>
 <p>First we will check if one route rerouted properly</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view one reroute to confirm pathroutr is rerouting </span></span>
