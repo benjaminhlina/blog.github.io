@@ -44,7 +44,7 @@ I will add that many of the `{dplyr}` and `{tidyr}` functions and processes can 
 }
 ```
 
-For the purpose of the vignette we will be using the `fish` dataframe that is available within `{nicheROVER}`. We will remove $\delta$<sup>34</sup>S for simplicity of the vignette. If more than two isotopes or metrics are being used to compare niche size and overlap, you can make modify the code to include the additional isotopes or metrics. 
+For the purpose of the vignette we will be using the `fish` dataframe that is available within `{nicheROVER}`. We will remove $\delta$<sup>34</sup>S for simplicity of the vignette. If more than two isotopes or metrics are being used to compare niche sizes and similarities, you can modify the code to include the additional isotopes or metrics. 
 
 We will first use the function `janitor::clean_names()` to clean up column names and remove $\delta$<sup>34</sup>S column. For your purposes you will need to replace fish with your dataframe either by loading a csv or rds with your data. You can do this multiple ways, I prefer using `readr::read_csv()` but base R works perfectly fine.   
 
@@ -64,7 +64,7 @@ We will take 1,000 posterior samples for each group. You can change this but sug
 nsample <- 1000
 ```
 
-We wlll then split the dataframe into a list with each species as a dataframe object within the list, We will then iterate over the list, using `map()` from [{purrr}](https://purrr.tidyverse.org/), to estimate posterior distribution using Normal-Inverse-Wishart (NIW) priors.
+We will then split the dataframe into a list with each species as a dataframe object within the list, We will then iterate over the list, using `map()` from [{purrr}](https://purrr.tidyverse.org/), to estimate posterior distribution using Normal-Inverse-Wishart (NIW) priors.
 
 ```{r, message = FALSE}
 fish_par <- df %>% 
@@ -99,7 +99,7 @@ df_mu <- map(fish_par, pluck, 1) %>%
   ungroup()
 
 ```
-We need to manipulate `df_mu` into long instead of wide format for the rest of the analysis. We will also add in a column that is the element abbreviation and neutron number to be used in axis labeling. 
+We need to manipulate `df_mu` into long format instead of wide format for the rest of the analysis. We will also add in a column that is the element abbreviation and neutron number to be used in axis labelling. 
 
 ```{r}
 df_mu_long <- df_mu %>% 
@@ -119,7 +119,7 @@ df_mu_long <- df_mu %>%
 ```
 
 ### Extract $\Sigma$ values 
-We will use a combination of `map()` and `pluck()` to first extract the list of posteriors for $\Sigma$. We will extract each vector object from each the $\Sigma$ of each species using `imap()` and convert them into a `tibble`.
+We will use a combination of `map()` and `pluck()` to first extract the list of posteriors for $\Sigma$. We will extract each vector object from each of the $\Sigma$ vectors for each species using `imap()` and convert them into a `tibble`.
 
 We will manipulate `df_sigma` from wide to long format. When doing so we create two columns, `id` and `isotope`, that identify the two isotopes that $\Sigma$ is being estimated for. 
 
@@ -152,9 +152,9 @@ df_sigma_cn <- df_sigma %>%
 
 For most plotting within this vignette, I will `split()` the dataframe by isotope, creating a list that I will then use `imap()` to iterate over the list to create plots. We will use `geom_density()` to represent densities for both $\mu$ and $\Sigma$. Plot objects will then be stored in a list. 
 
-First we will plot $\mu$ for each isotope. We will use [{patchwork}](https://patchwork.data-imaginist.com/) to configure plots for multi-panel figures. The package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.
+First we will plot $\mu$ for each isotope. We will use [{patchwork}](https://patchwork.data-imaginist.com/) to configure plots for multi-panel figures. This package is phenomenal and uses math operators to configure and manipulate the plots to create multi-panel figures.
 
-For labeling we are also going to use `element_markdown()` from [{ggtext}](https://wilkelab.org/ggtext/) to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace. 
+For labelling we are also going to use `element_markdown()` from [{ggtext}](https://wilkelab.org/ggtext/) to work with the labels that are needed to correctly display the isotopic signature. If you are working other data please replace. 
 
 ```{r}
 #| out-width: 100%
@@ -248,7 +248,7 @@ sigma_plots[[1]] +
 ```
 ### Estimate niche ellipse 
 
-We  need to manipulate `df_sigma` back to wide format for ellipses. 
+We need to manipulate `df_sigma` back to wide format for ellipses. 
 
 ```{r, message = FALSE} 
 df_sigma_wide <- df_sigma %>%
@@ -257,7 +257,7 @@ df_sigma_wide <- df_sigma %>%
 ```
 
 
-Next we will use a for loop to estimate niche ellipses for all 1,000 samples. The default confidence level is 0.95 but can be adjusted by changing `p.ell`. 
+Next we will use a `for` loop to estimate niche ellipses for all 1,000 samples. The default confidence level is 0.95 but can be adjusted by changing `p.ell`. 
 
 ```{r}
 p.ell <- 0.95
@@ -268,7 +268,7 @@ We will then create a vector of unique species (i.e., groups), that we loop over
 species_name <- unique(df_sigma_wide$species)
 ```
 
-Next create an empty list to dump the results of the for loop. 
+Next create an empty list to dump the results of the `for` loop. 
 
 ```{r}
 all_ellipses <- list()
@@ -276,7 +276,7 @@ all_ellipses <- list()
 
 We then will use the following `for` loop. First it subsets `mu` and `sigma` objects by species. Then it extracts $\mu$ and $\Sigma$ values for each sample number for each isotope and each species. Then $\mu$ and $\Sigma$ are given to `ellipse()` from [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) that will generate a unique ellipse with a confidence interval of `p.ell` for each sample (e.g., 1,000 samples). We need to add in dummy variables (`ell` and `post.id`) in the first loop that we will add to within the second loop. 
 
-If you are to have additional isotopes or metrics, you will need to modify this loop to include them. Specifically `ellipse()` can only work within two-dimensions, not three so you will have to create multiple `ellipse()` calls for each combination of isotopes or metrics.
+If you are to have additional isotopes or metrics, you will need to modify this loop to include them. Specifically `ellipse()` can only work within two-dimensions, not three, so you will have to create multiple `ellipse()` calls for each combination of isotopes or metrics.
 
 ```{r}
 for (i in 1:length(species_name)) {
@@ -318,7 +318,7 @@ for (i in 1:length(species_name)) {
 }
 ```
 
-We then will then take the resulting list and merge together to create a dataframe that can be used in plotting. I use the argument `.id` to designate a unique number to each object in the list because each dataframe object in the list is estimated ellipses for each species (e.g., 1-4). we then will use `case_when()` to add in a column with our species identifiers. 
+We then will then take the resulting list and merge together to create a dataframe that can be used in plotting. I use the argument `.id` to designate an unique number to each object in the list because each dataframe object in the list is an estimated ellipse for each species (e.g., 1-4). we then will use `case_when()` to add in a column with our species abbreviations.  
 
 ```{r}
 # combine ellipose list into dataframe and add species names back in 
@@ -336,7 +336,7 @@ ellipse_df <- bind_rows(all_ellipses, .id = "id") %>%
   as_tibble()
 ```
 
-We will randomly sample 10 ellipses out of 1000. You can change this but this seems pretty standard. 
+We will randomly sample 10 ellipses out of 1,000. You can change this but this seems pretty standard. 
 
 ```{r}
 ellipse_df %>% 
@@ -347,7 +347,7 @@ ellipse_df %>%
   ungroup() %>% 
   unnest(cols = c(data)) -> random_ellipse 
 ```
-###Plot ellipses, densities of each istope, and isotope biplot 
+### Plot ellipses, densities of each istope, and isotope biplot 
 
 We will first plot the ellipse for each species 
 ```{r}
@@ -373,7 +373,7 @@ ellipse_plots <- ggplot() +
   labs(x = expression(paste(delta ^ 13, "C")), 
        y = expression(paste(delta ^ 15, "N")))
 ```
-We need to turn `df` into long format to iterate over using `imap()` to easily create density plots. You will notice that I again use `case_when()` to make columns of elment abbrevations and neutron numbers that will be used in plot labelling. 
+We need to turn `df` into long format to iterate over using `imap()` to easily create density plots. You will notice that I again use `case_when()` to make columns of element abbreviations and neutron numbers that will be used in plot labelling. 
 
 ```{r}
 iso_long <- df %>%
@@ -473,7 +473,7 @@ over_stat <- overlap(fish_par, nreps = nsample, nprob = 1000,
                      alpha = 0.95)
 ```
 
-We then are going transform this output to a data frame and make the data frame long format for plotting so we can assess overall similarities among species. 
+We then are going transform this output to a dataframe and make the dataframe long format for plotting so we can assess overall similarities among species. 
 ```{r}
 over_stat_df <- over_stat %>% 
   as_tibble(rownames = "species_a") %>% 
@@ -497,7 +497,7 @@ over_stat_df <- over_stat %>%
   )
 ```
 
-We then are going to take our newly made data frame and extract out the mean percentage of similarities and the 2.5% and 97.5% quarantines. We plot these as lines and dotted lines on our percent similarty density figure. 
+We then are going to take our newly made data frame and extract out the mean percentage of similarities and the 2.5% and 97.5% quarantines. We plot these as lines and dotted lines on our percent similarity density figure. 
 ```{r, message = FALSE}
 over_sum <- over_stat_df %>% 
   group_by(species_a, species_b) %>% 
@@ -544,7 +544,8 @@ ggplot(data = over_stat_df, aes(x = mc_nr_perc)) +
        y = "p(Percent Overlap | X)")
 ```
 
-###Estimate overall niche size 
+### Estimate overall niche size 
+
 We are now going to estimate the overall size of the niche for each posterior sample by using the function `niche.size()`. 
 
 ```{r}
@@ -553,7 +554,7 @@ niche_size <- sapply(fish_par, function(spec) {
 })
 ```
 
-We then need to transform `niche_size` into a data fame for visualization and summary statistics. 
+We then need to transform `niche_size` into a datafame for visualization and summary statistics. 
 
 ```{r}
 niche_size_df <- niche_size %>% 
@@ -588,7 +589,7 @@ niche_size_mean <- niche_size_df %>%
 
 ### Plot niche size 
 
-We will now use `geom_violin()`, `geom_point()` and `geom_errorbar()` to plot the distrubition for niche size for each species.  
+We will now use `geom_violin()`, `geom_point()`, and `geom_errorbar()` to plot the distribution for niche size for each species.  
 
 ```{r}
 ggplot(data = niche_size_df) + 
@@ -606,4 +607,4 @@ ggplot(data = niche_size_df) +
   labs(x = "Species", 
        y = "Niche Size") 
 ```
-Now that we have our niche sizes determined we can make inferences about the species, trophic similarities, and the ecosystem. 
+Now that we have our niche sizes and similarities determined we can make inferences about the species, trophic similarities, and the ecosystem. 
