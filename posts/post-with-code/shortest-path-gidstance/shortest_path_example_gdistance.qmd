@@ -18,6 +18,9 @@ You can download and unzip this vignette using the following code:
 install.packages("usethis")
 usethis::use_course("https://github.com/benjaminhlina/shortest_path_example/archive/refs/heads/master.zip")
 ```
+### Disclaimer 
+
+This vignette uses {gdistance}, {raster}, and {sp} which as of October 2023 were retired. Please use the vignette using [{pathroutr}](https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html) for the timing being until I can update this vignette with using {terra}.  
 
 ### Load shapefile and receiver locations
 
