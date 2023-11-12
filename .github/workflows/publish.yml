@@ -26,17 +26,22 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages:
-            any::knitr
-            any::rmarkdown
-            any::rvest
+            any::broom.mixed
             any::dplyr
-            any::sf
+            any::fitdistrplus
             any::gdistance
             any::ggplot2
+            any::gratia
             any::here
+            any::knitr
+            any::mgcv
             any::purrr
             any::raster
             any::readr
+            any::rmarkdown
+            any::rvest
+            any::sf
+            any::soapcheckr
             any::sp
             any::tibble
             any::tibble
