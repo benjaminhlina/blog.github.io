@@ -47,9 +47,7 @@ jobs:
             any::tidyr
             
       - name: Install soapcheckr
-        run: install.packages('soapcheckr', 
-        repos = c('https://benjaminhlina.r-universe.dev',
-                                         'https://cloud.r-project.org'))
+        run: install.packages('soapcheckr', repos = c('https://benjaminhlina.r-universe.dev', 'https://cloud.r-project.org'))
         shell: Rscript {0}
         
       - name: Render and Publish
