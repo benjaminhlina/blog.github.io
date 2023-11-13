@@ -2,7 +2,7 @@
 title: "Shortest Paths Within a Boundary - {pathroutr}"
 author: "Benjamin Hlina"
 date: "2023-05-28"
-categories: [Spatial Analysis, Telemetry, Movement]
+categories: [Spatial Analysis, Acoustic Telemetry, Movement]
 image: "7_big_sissabagama_rerouted_paths.png"
 execute:
   eval: FALSE
