@@ -1,5 +1,5 @@
 ---
-title: "How to use {soapcheckr}"
+title: "How to use {soapcheckr} to make soap-flim smoothers"
 author: "Benjamin L. Hlina"
 image: "01_sissabagama_bathymetry_gam.png"
 date: "2023-11-12"
