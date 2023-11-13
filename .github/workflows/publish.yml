@@ -41,12 +41,17 @@ jobs:
             any::rmarkdown
             any::rvest
             any::sf
-            any::soapcheckr
             any::sp
             any::tibble
             any::tibble
             any::tidyr
-
+            
+      - name: Install soapcheckr
+        run: install.packages('soapcheckr', 
+        repos = c('https://benjaminhlina.r-universe.dev',
+                                         'https://cloud.r-project.org'))
+        shell: Rscript {0}
+        
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
