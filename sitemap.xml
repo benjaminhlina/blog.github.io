@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-10-21T18:33:10.936Z</lastmod>
-  </url>
-  <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2023-10-21T18:33:09.984Z</lastmod>
+    <lastmod>2023-11-13T01:31:47.774Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-10-21T18:33:07.500Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2023-10-21T18:33:08.844Z</lastmod>
+    <lastmod>2023-11-13T01:31:46.182Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-10-21T18:33:10.336Z</lastmod>
+    <lastmod>2023-11-13T01:31:44.886Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/index.html</loc>
+    <lastmod>2023-11-13T01:31:44.354Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
+    <lastmod>2023-11-13T01:31:45.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
+    <lastmod>2023-11-13T01:31:47.014Z</lastmod>
   </url>
 </urlset>

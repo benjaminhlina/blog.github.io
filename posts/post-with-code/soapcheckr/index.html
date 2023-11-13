@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Benjamin L. Hlina">
+<meta name="dcterms.date" content="2023-11-12">
+
+<title>Blog - How to use {soapcheckr}</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MGFSRVFVLF"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://benjaminhlina.com" rel="" target=""><i class="bi bi-wordpress" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/benjaminhlina" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ben_hlina" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=upRdN9AAAAAJ&amp;hl=en" rel="" target=""><i class="bi bi-mortarboard" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">How to use {soapcheckr}</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Generalized Additive Models</div>
+                <div class="quarto-category">Spatial Analysis</div>
+                <div class="quarto-category">Acoustic Telemetry</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Benjamin L. Hlina </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 12, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#our-objectives" id="toc-our-objectives" class="nav-link active" data-scroll-target="#our-objectives"><span class="header-section-number">0.1</span> Our Objectives</a></li>
+  <li><a href="#example-1-making-a-soap-film-smoother-for-a-simple-boundary---ramsays-horseshoe" id="toc-example-1-making-a-soap-film-smoother-for-a-simple-boundary---ramsays-horseshoe" class="nav-link" data-scroll-target="#example-1-making-a-soap-film-smoother-for-a-simple-boundary---ramsays-horseshoe"><span class="header-section-number">0.2</span> Example 1: Making a soap-film smoother for a Simple boundary - Ramsay’s horseshoe</a></li>
+  <li><a href="#example-2-making-a-soap-film-smoother-for-a-more-complex-boundary." id="toc-example-2-making-a-soap-film-smoother-for-a-more-complex-boundary." class="nav-link" data-scroll-target="#example-2-making-a-soap-film-smoother-for-a-more-complex-boundary."><span class="header-section-number">0.3</span> Example 2: Making a soap-film smoother for a more complex boundary.</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="our-objectives" class="level3" data-number="0.1">
+<h3 data-number="0.1" class="anchored" data-anchor-id="our-objectives"><span class="header-section-number">0.1</span> Our Objectives</h3>
+<p>The purpose of this vignette is to demonstrate an effective workflow while using <a href="https://github.com/dill/soap_checker">{soapcheckr}</a> to efficiently make a soap-film smoother for a Generalized Additive Model (GAM) using the package <a href="https://cran.r-project.org/web/packages/mgcv/index.html">{mgcv}</a>. Soap-film smoothers are really useful when trying to model a variable within a 3-dimensional space (e.g., bathymetry of a lake; <a href="https://fromthebottomoftheheap.net/2016/03/27/soap-film-smoothers/">Gavin Simpson Blog Post</a>). They can be used for all sorts of data but are quite complex and difficult to setup. <a href="https://github.com/dill/soap_checker">{soapcheckr}</a> tries to make this process a little easier. This vignette will walk through several different examples using example data sets loaded when loading <a href="https://github.com/dill/soap_checker">{soapcheckr}</a> and <a href="https://cran.r-project.org/web/packages/mgcv/index.html">{mgcv}</a>. We strongly encourage going through both examples, as the first provides a general background on soap-films within a simple boundary and the second a more complex example within a more complex boundary.</p>
+</section>
+<section id="example-1-making-a-soap-film-smoother-for-a-simple-boundary---ramsays-horseshoe" class="level3" data-number="0.2">
+<h3 data-number="0.2" class="anchored" data-anchor-id="example-1-making-a-soap-film-smoother-for-a-simple-boundary---ramsays-horseshoe"><span class="header-section-number">0.2</span> Example 1: Making a soap-film smoother for a Simple boundary - Ramsay’s horseshoe</h3>
+<p>If we were wanting to make a soap-film smoother for a boundary that does not have any inner boundaries (e.g., a lake without an island) we can use <code>{soapcheckr}</code> to assess our single boundary and the potential knots we want to smooth over.</p>
+<section id="install-soapcheckr" class="level4" data-number="0.2.1">
+<h4 data-number="0.2.1" class="anchored" data-anchor-id="install-soapcheckr"><span class="header-section-number">0.2.1</span> Install <a href="https://github.com/dill/soap_checker">{soapcheckr}</a></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'soapcheckr'</span>, <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">'https://benjaminhlina.r-universe.dev'</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">'https://cloud.r-project.org'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-packages" class="level4" data-number="0.2.2">
+<h4 data-number="0.2.2" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">0.2.2</span> Load packages</h4>
+<p>We will use some data manipulation functions from <a href="https://dplyr.tidyverse.org/">{dplyr}</a> and some spatial functions from <a href="https://r-spatial.github.io/sf/">{sf}</a> to first check if we can make a soap-film using <a href="https://github.com/dill/soap_checker">{soapcheckr}</a> and second to run a GAM using <a href="https://cran.r-project.org/web/packages/mgcv/index.html">{mgcv}</a> with a soap-film smoother.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(broom.mixed)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gratia)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(mgcv)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(purrr)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(soapcheckr)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(sf)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="check-if-we-can-make-a-soap-film-for-ramseys-horseshoe" class="level4" data-number="0.2.3">
+<h4 data-number="0.2.3" class="anchored" data-anchor-id="check-if-we-can-make-a-soap-film-for-ramseys-horseshoe"><span class="header-section-number">0.2.3</span> Check if we can make a soap-film for Ramsey’s horseshoe</h4>
+<p>We will load Ramsey’s horseshoe from <a href="https://cran.r-project.org/web/packages/mgcv/index.html">{mgcv}</a> and make it a list within a list to sufficiently create the boundary a soap-film smoother needs within a GAM.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fsb <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">fs.boundary</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then can check the boundary using <code>soap_check()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(fsb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check ramsays horseshoe-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>We can see that <code>soap_check()</code> returns <code>TRUE</code> indicating that we can use this boundary to make a soap-film smoother. <code>soap_check()</code> will assess if the boundary supplied, has any overlapping polygons and is in the correct structure for a soap-film smoother to be run in <code>{mgcv}</code>.</p>
+</section>
+<section id="check-if-the-data-and-the-evenly-spaced-knots-fall-within-the-boundary" class="level4" data-number="0.2.4">
+<h4 data-number="0.2.4" class="anchored" data-anchor-id="check-if-the-data-and-the-evenly-spaced-knots-fall-within-the-boundary"><span class="header-section-number">0.2.4</span> Check if the data and the evenly spaced knots fall within the boundary</h4>
+<p>Sometimes knots are too close to the boundary, resulting with errors from the model that look like this:</p>
+<pre><code>Error in crunch.knots(ret$G, knots, x0, y0, dx, dy) :
+knot 1 is on or outside boundary</code></pre>
+<p>It can be tedious and annoying to try to figure out which knots and/or data points are causing issues. The below workflow will demonstrate how to effectively remove knots and/or data points that result in the above error within the GAM.</p>
+<p>We will use <code>expand.grid()</code> to create an equally spaced grid of knots. Then we remove knots outside of the boundary using <code>inSide()</code> from <a href="https://cran.r-project.org/web/packages/mgcv/index.html">{mgcv}</a>. There still may be knots that are too close to the boundary that will cause for a soap-film smoother to not work.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create knots </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knots <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="fu">min</span>(fsb[[<span class="dv">1</span>]]<span class="sc">$</span>x), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">max</span>(fsb[[<span class="dv">1</span>]]<span class="sc">$</span>x), <span class="at">len =</span> <span class="dv">15</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="fu">seq</span>(<span class="fu">min</span>(fsb[[<span class="dv">1</span>]]<span class="sc">$</span>y) <span class="sc">+</span> <span class="fl">0.05</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">max</span>(fsb[[<span class="dv">1</span>]]<span class="sc">$</span>y), <span class="at">len =</span> <span class="dv">10</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> knots<span class="sc">$</span>x</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> knots<span class="sc">$</span>y</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the knots that are outside the boundary </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">inSide</span>(fsb, <span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># remove knots outside the boundary </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>knots <span class="ot">&lt;-</span> knots[ind, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will also create some fake data to test the model. We will use a uniform distribution to make our test data and a response variable will be created using <code>fs.test()</code>. We will use <code>inSide()</code> to remove data that fall outside our boundary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">600</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Our x and y data </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">5</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create our response variable </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">fs.test</span>(x, y, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## remove outsiders</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">inSide</span>(fsb, <span class="at">x =</span> x, <span class="at">y =</span> y) </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> z <span class="sc">+</span> <span class="fu">rnorm</span>(n) <span class="sc">*</span> <span class="fl">0.3</span> <span class="do">## add noise</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the data we want to model </span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">z =</span> z[ind],</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">x =</span> x[ind],</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> y[ind])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, there still may be knots and/or data points that are too close to the boundary. One can go through, one-by-one and remove the offending knots as <code>crunch.knots()</code> finds them, but that’s a bit tedious. Enter <code>soap_check()</code> and <code>autocruncher()</code>, with the former allowing one to visually check what knots and/or data will causes issues and the latter identifying the index location of the offending knots or data points. If the knot dataframe has column names other than <code>x</code> and <code>y</code>, we need to supply <code>soapcheckr()</code> those names using the arguments <code>x_name</code> and <code>y_name</code>, respectfully.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(fsb, <span class="at">knots =</span> knots)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in soap_check(fsb, knots = knots): Knots 1, 13, 66, 93 are outside the</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; boundary.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check our knots-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>We can see that there four offending knots that we can subsequently remove using <code>autocruncher()</code>. This function will return the indices of the knots that would cause issues. If the knot dataframe has column names other than <code>x</code> and <code>y</code>, we need supply those column names to the arguments <code>xname</code> and <code>yname</code>, respectfully. Note that you need to set the <code>k</code> and <code>nmax</code> arguments in <code>autocruncher()</code> to be the same as your planned value in <code>gam()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>crunch_index <span class="ot">&lt;-</span> <span class="fu">autocruncher</span>(fsb, knots, <span class="at">k =</span> <span class="dv">30</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>crunch_index</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1 13 66 93</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># remove knots that are problematic</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>knots <span class="ot">&lt;-</span> knots[<span class="sc">-</span>crunch_index, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use <code>soap_check()</code> again to check if knots all fall within the boundary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(fsb, <span class="at">knots =</span> knots)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check knots with soap_check-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>And they do! Congratulations!</p>
+</section>
+<section id="check-the-data" class="level4" data-number="0.2.5">
+<h4 data-number="0.2.5" class="anchored" data-anchor-id="check-the-data"><span class="header-section-number">0.2.5</span> Check the data</h4>
+<p>We can also use <code>soap_check()</code> to check if our data falls within the boundary, but <code>soap_check()</code> only cares about the coordinates you want to supply the soap-film. So first we will create a secondary dataframe that has the response variable, <code>z</code>, removed from it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dat_2 <span class="ot">&lt;-</span> dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(fsb, <span class="at">data =</span> dat_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check data with soapcheck-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>Congrats we can see our data doesn’t fall too closely to boundary and is within the boundary.</p>
+</section>
+<section id="run-the-model" class="level4" data-number="0.2.6">
+<h4 data-number="0.2.6" class="anchored" data-anchor-id="run-the-model"><span class="header-section-number">0.2.6</span> Run the model</h4>
+<p>Between data, knots, and boundary all column names must be the same for the model to work. Prior to running confirm that they are all the same.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">gam</span>(z <span class="sc">~</span> <span class="fu">s</span>(x, y, <span class="at">k =</span> <span class="dv">30</span> , <span class="at">bs =</span> <span class="st">"so"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">xt =</span> <span class="fu">list</span>(<span class="at">bnd =</span> fsb)),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">knots =</span> knots, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, check main effects of the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then visually check the model effects using <code>draw()</code> from <a href="https://gavinsimpson.github.io/gratia/">{gratia}</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/draw model effects-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Lastly, check the model fit using <code>appraise()</code> from <a href="https://gavinsimpson.github.io/gratia/">{gratia}</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">appraise</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check model fit-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can see the model fits well and is appropriate for the example data. Now that you’ve walked through a simple boundary, we will go to a more complex boundary example. More than likely you will be working with a complex boundary. The below walk through can be applied to a simple boundary as well.</p>
+</section>
+</section>
+<section id="example-2-making-a-soap-film-smoother-for-a-more-complex-boundary." class="level3" data-number="0.3">
+<h3 data-number="0.3" class="anchored" data-anchor-id="example-2-making-a-soap-film-smoother-for-a-more-complex-boundary."><span class="header-section-number">0.3</span> Example 2: Making a soap-film smoother for a more complex boundary.</h3>
+<p>More than likely you will have your boundary as a <code>sf</code> object. To convert that <code>sf</code> object into the boundary list needed by {mgcv} and {soapcheckr}, we will have to do some conversions. First that boundary might not be in the correct coordinate reference system (CRS). To create a soap-film smoother we need to use a CRS that for one unit change in either dimension (i.e., x and y) are equal. For example using latitude and longitude in decimal degrees with a WGS 84 projection will not work because one unit of change in either direction is not equal. Therefore, we will need to use a CRS that is based on equal units. The most common CRS to do this is UTMs, if the boundary is already in UTMs great, if not see below.</p>
+<section id="convert-crs" class="level4" data-number="0.3.1">
+<h4 data-number="0.3.1" class="anchored" data-anchor-id="convert-crs"><span class="header-section-number">0.3.1</span> Convert CRS</h4>
+<p>The more complex boundary that we will load through {soapcheckr} is a lake from northern Wisconsin, Sissabagama Lake. I grew up fishing on this lake which is where initially became interested and passionate about aquatic ecosystems, fish, and fisheries management. This lake falls within UTM zone 15N that can also be refereed to as ESPG: 32615, but your boundary will more than likely fall into a different CRS. You can look up ESPG codes <a href="https://epsg.io/">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sissabagama_lake_sf <span class="ot">&lt;-</span> sissabagama_lake_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32615</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="convert-to-boundary-list" class="level4" data-number="0.3.2">
+<h4 data-number="0.3.2" class="anchored" data-anchor-id="convert-to-boundary-list"><span class="header-section-number">0.3.2</span> Convert to boundary list</h4>
+<p>We need to create the list of lists of the boundaries from the <code>sf</code> object that we will supply to the soap-film smoother.</p>
+<p>Our example lake has a <code>geometry</code> column that is a <code>POLYGON</code>. We need to be able to split that into each polygon (i.e., islands) that we will create the boundary list from. We can do this by first casting our <code>geometry</code> into <code>MULTIPOINT</code> and assigning each <code>MULTIPOINT</code> row an ID value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>bnd_pt_sf <span class="ot">&lt;-</span> sissabagama_lake_sf <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(geometry) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">"MULTIPOINT"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we will split our <code>sf</code> object and iterate over each <code>MULTIPOINT</code> geometry to first cast to individual <code>POINT</code> geometry and extract each <code>x</code> and <code>y</code> coordinates. It is important in this step that the names of the coordinates are <code>x</code> and <code>y</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bnd_pt <span class="ot">&lt;-</span> bnd_pt_sf <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>id) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="sc">~</span> <span class="fu">st_cast</span>(.x, <span class="st">"POINT"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">mutate</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"X"</span>],</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"Y"</span>]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>               ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>id)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have a list of dataframes split by each polygon’s x and y coordinates that have had the <code>id</code> column removed. We then need to create a vector that is <code>id</code> number of each polygon. In this case it’s 1-5, we can use <code>length()</code> of our list o dataframes to easily create the end of our numerical vector.</p>
+<p>We will then iterate over our list and bind them all together to get our lists and lists of our polygon boundaries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>nr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(bnd_pt)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sissabagama_bnd_ls <span class="ot">&lt;-</span> <span class="fu">lapply</span>(nr, <span class="cf">function</span>(n) <span class="fu">as.list.data.frame</span>(bnd_pt[[n]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="check-if-the-boundary-list-works" class="level4" data-number="0.3.3">
+<h4 data-number="0.3.3" class="anchored" data-anchor-id="check-if-the-boundary-list-works"><span class="header-section-number">0.3.3</span> Check if the boundary list works</h4>
+<p>We will check the boundary list using <code>soap_check()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check more complex boundary-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p><code>soap_check</code> returns back <code>TRUE</code> so our more complex boundary will work for our soap-film smoother. One thing that I’ve always loved about this lake is how it looks like person!</p>
+</section>
+<section id="make-knots-for-a-more-complex-boundary-using-sf" class="level4" data-number="0.3.4">
+<h4 data-number="0.3.4" class="anchored" data-anchor-id="make-knots-for-a-more-complex-boundary-using-sf"><span class="header-section-number">0.3.4</span> Make knots for a more complex boundary using <a href="https://r-spatial.github.io/sf/">{sf}</a></h4>
+<p>We can use <code>st_make_grid()</code> to create a grid of equally spaced points across the boundary box of our example <code>sf</code> object of Sissabagama Lake. Remember a soap-film smoother needs equally spaced knots to smooth over. Our <code>sf</code> object is in UTMs which is great becasue then each grid point in this case is 200 m away from each other. Depending on the size of the boundary and system you can change 200 to whatever value makes sense (e.g., large system, further spaced knots, small system, closer spaced knots/this is suggestion but do whatever makes sense).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lake_grid <span class="ot">&lt;-</span> sissabagama_lake_sf <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_grid</span>(<span class="at">cellsize =</span> <span class="dv">200</span>, <span class="at">square =</span> <span class="cn">TRUE</span>, <span class="at">what =</span> <span class="st">"centers"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry</span>(lake_grid) <span class="ot">&lt;-</span> <span class="st">"geometry"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will then remove all the knots that fall outside the boundary by using <code>st_intersection()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lake_intesects <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(sissabagama_lake_sf, lake_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we will create our knot dataframe by extracting the lon and lat of each point and then dropping the <code>geometry</code> column and selecting our <code>lon</code> and <code>lat</code> columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lake_knots <span class="ot">&lt;-</span> lake_intesects <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"X"</span>],</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"Y"</span>]</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(lon, lat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have our knots we can check to see if there are any knots that fall too close to the boundary using <code>soap_check()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls, <span class="at">knots =</span> lake_knots, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">x_name =</span> <span class="st">"lon"</span>, <span class="at">y_name =</span> <span class="st">"lat"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in soap_check(sissabagama_bnd_ls, knots = lake_knots, x_name = "lon", :</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Knots 42, 63, 68 are outside the boundary.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check knots using soap_check-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>We can see that there are a few knots that are too close to the boundary. We can remove them using <code>autocruncher()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>crunch_ind <span class="ot">&lt;-</span> <span class="fu">autocruncher</span>(sissabagama_bnd_ls, lake_knots, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">xname =</span> <span class="st">"lon"</span>, <span class="at">yname =</span> <span class="st">"lat"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>crunch_ind</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42 63 68</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># remove knots that are problematic</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>lake_knots <span class="ot">&lt;-</span> lake_knots[<span class="sc">-</span>crunch_ind, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that those knots have been removed we can recheck our knots using <code>soap_check()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls, <span class="at">knots =</span> lake_knots, </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">x_name =</span> <span class="st">"lon"</span>, <span class="at">y_name =</span> <span class="st">"lat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/recheck knots-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>Congratulations! We have knots and a boundary that we can supply our model.</p>
+</section>
+<section id="sissabagama-example-dataset" class="level4" data-number="0.3.5">
+<h4 data-number="0.3.5" class="anchored" data-anchor-id="sissabagama-example-dataset"><span class="header-section-number">0.3.5</span> Sissabagama example dataset</h4>
+<p>We will bring our sampled depths at given locations for Sissabagama lake. This data was generated by referencing the contour map supplied by the <a href="https://apps.dnr.wi.gov/lakes/lakepages/LakeDetail.aspx?wbic=2393500">Wisconsin DNR</a>. We will first remove depth to check if the data points all fall within our boundary using <code>soap_check()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>sissabagama_bath_pt <span class="ot">&lt;-</span> sissabagama_bath <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>depth)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls, <span class="at">data =</span> sissabagama_bath_pt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/remove depth for soap_check-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+<p>Then we will assess the distribution of the data to determine which distribution the model should use to fit the data to. We will use functions from <a href="https://cran.r-project.org/web/packages/fitdistrplus/index.html">{fitdistrplus}</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>depths <span class="ot">&lt;-</span> sissabagama_bath<span class="sc">$</span>depth</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(depths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check skewness and kurtosis-1.png" class="img-fluid" width="672"></p>
+</div>
+<pre><code>#&gt; summary statistics
+#&gt; ------
+#&gt; min:  3   max:  48 
+#&gt; median:  15 
+#&gt; mean:  15.29438 
+#&gt; estimated sd:  9.983594 
+#&gt; estimated skewness:  0.7078068 
+#&gt; estimated kurtosis:  2.964066</code></pre>
+</div>
+<p>Skewness and kurtosis of our example data indicates that a model using a Gamma error distribution will likely fit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fit_gamma <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(depths, <span class="at">distr =</span> <span class="st">"gamma"</span>, <span class="at">method =</span> <span class="st">"mme"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_gamma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check distr-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can see the depth data will likely fit a Gamma error distribution and therefore our GAM will use a Gamma error distribution.</p>
+</section>
+<section id="run-the-model-1" class="level4" data-number="0.3.6">
+<h4 data-number="0.3.6" class="anchored" data-anchor-id="run-the-model-1"><span class="header-section-number">0.3.6</span> Run the model</h4>
+<p>Prior to running our GAM with a soap-film smoother we need to add one last thing to our boundary list. We need to add the variable <code>f</code> to every boundary polygon within our boundary list. This variable indicates to the soap-film smoother that our response variable is <code>0</code> right at the boundary, otherwise the soap-film smoother does not know what to do when it hits the boundary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lake_knots) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>sissabagama_bnd_ls <span class="ot">&lt;-</span> <span class="fu">lapply</span>(nr,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                             <span class="cf">function</span>(n)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                               sissabagama_bnd_ls[[n]] <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                                 sissabagama_bnd_ls[[n]],</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">list</span>(<span class="at">f =</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(sissabagama_bnd_ls[[n]]<span class="sc">$</span>x))</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                                 )</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                               )</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now successfully run our GAM with a soap-film smoother.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">gam</span>(depth <span class="sc">~</span> <span class="fu">s</span>(x, y,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">bs =</span> <span class="st">"so"</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">xt =</span> <span class="fu">list</span>(<span class="at">bnd =</span> sissabagama_bnd_ls)),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">knots =</span> lake_knots,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> sissabagama_bath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can evaluate the main of the model using <code>anova()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Family: Gamma </span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Link function: identity </span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula:</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; depth ~ s(x, y, bs = "so", xt = list(bnd = sissabagama_bnd_ls))</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          edf Ref.df     F p-value</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; s(x,y) 57.47  76.00 16.51  &lt;2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we can evaluate partial effects of the model using <code>summary()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Family: Gamma </span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Link function: identity </span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Formula:</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; depth ~ s(x, y, bs = "so", xt = list(bnd = sissabagama_bnd_ls))</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parametric coefficients:</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   2.8408     0.2074    13.7   &lt;2e-16 ***</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          edf Ref.df     F p-value    </span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; s(x,y) 57.47     76 16.51  &lt;2e-16 ***</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-sq.(adj) =  0.786   Deviance explained = 76.8%</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GCV = 0.15835  Scale est. = 0.12696   n = 445</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can evaluate the partial effects of the model using <code>draw()</code> from <code>{gratia}</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">draw</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check partial effects-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can evaluate how well the model fit is to the data using <code>appraise()</code> also from <code>{gratia}</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">appraise</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/check model fit for m1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="plot-our-predicted-results" class="level4" data-number="0.3.7">
+<h4 data-number="0.3.7" class="anchored" data-anchor-id="plot-our-predicted-results"><span class="header-section-number">0.3.7</span> Plot our predicted results</h4>
+<p>We will first create a 10 m grid from our <code>sf</code> object of our boundary. Depending on the size of the boundary you can change the grid size distance to whatever distance makes sense (i.e., if the system is large you may want to increase the <code>cellsize</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>lake_pred <span class="ot">&lt;-</span> sissabagama_lake_sf <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_grid</span>(<span class="at">cellsize =</span> <span class="dv">10</span>, <span class="at">square =</span> <span class="cn">TRUE</span>, <span class="at">what =</span> <span class="st">"centers"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry</span>(lake_pred) <span class="ot">&lt;-</span> <span class="st">"geometry"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After creating the grid that we will predict values from we will need to remove any points that fall outside our polygon boundary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lake_pred <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(lake_pred, sissabagama_lake_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we extract latitude and longitude and convert the <code>sf</code> object into a dataframe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>lake_pred_df <span class="ot">&lt;-</span> lake_pred <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"X"</span>], </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">st_coordinates</span>(.)[,<span class="st">"Y"</span>], </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then can use the function <code>augment()</code> from the package <a href="https://cran.r-project.org/web/packages/broom.mixed/index.html">{broom.mixed}</a> to predict depth of the lake at a given latitude and longitude.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">augment</span>(m1, <span class="at">newdata =</span> lake_pred_df)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> pred <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> .fitted <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> .se.fit,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">higher =</span> .fitted <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> .se.fit</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lastly, we can visualize our predicted depths to create a bathymetic map of the lake using <code>ggplot()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> pred, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> .fitted)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> sissabagama_lake_sf, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">"Depth (m)"</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">trans =</span> <span class="st">"reverse"</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">rev</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">15</span>))</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>(</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_size =</span> <span class="dv">15</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.98</span>, <span class="fl">0.82</span>),</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colourbar</span>(</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">frame.linewidth =</span> <span class="fl">0.3</span>,</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">ticks.colour =</span> <span class="st">'black'</span>, </span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">frame.colour =</span> <span class="st">'black'</span>)) <span class="sc">+</span> </span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Longitude"</span>, </span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Latitude"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/plot our predicted depths using ggplot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Congratulations! We have made a soap-film GAM that takes in account the boundaries within the lake to estimate the bathymetry of the lake. For this example I used bathymetry, but you can use this workflow to model any type of variable (e.g., fish and/or animal movement/acceleration, wind speed, water quality, ect.)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
