@@ -410,7 +410,7 @@ knot 1 is on or outside boundary</code></pre>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>id)</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We now have a list of dataframes split by each polygon’s x and y coordinates that have had the <code>id</code> column removed. We then need to create a vector that is <code>id</code> number of each polygon. In this case it’s 1-5, we can use <code>length()</code> of our list o dataframes to easily create the end of our numerical vector.</p>
+<p>We now have a list of dataframes split by each polygon’s x and y coordinates that have had the <code>id</code> column removed. We then need to create a vector that is <code>id</code> number of each polygon. In this case it’s 1-5, we can use <code>length()</code> of our list of dataframes to easily create the end of our numerical vector.</p>
 <p>We will then iterate over our list and bind them all together to get our lists and lists of our polygon boundaries.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>nr <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(bnd_pt)</span>
@@ -455,7 +455,7 @@ knot 1 is on or outside boundary</code></pre>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(lon, lat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now that we have our knots we can check to see if there are any knots that fall too close to the boundary using <code>soap_check()</code></p>
+<p>Now that we have our knots we can check to see if there are any knots that fall too close to the boundary using <code>soap_check()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls, <span class="at">knots =</span> lake_knots, </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">x_name =</span> <span class="st">"lon"</span>, <span class="at">y_name =</span> <span class="st">"lat"</span>)</span>
@@ -476,7 +476,7 @@ knot 1 is on or outside boundary</code></pre>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># remove knots that are problematic</span></span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>lake_knots <span class="ot">&lt;-</span> lake_knots[<span class="sc">-</span>crunch_ind, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now that those knots have been removed we can recheck our knots using <code>soap_check()</code></p>
+<p>Now that those knots have been removed we can recheck our knots using <code>soap_check()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">soap_check</span>(sissabagama_bnd_ls, <span class="at">knots =</span> lake_knots, </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">x_name =</span> <span class="st">"lon"</span>, <span class="at">y_name =</span> <span class="st">"lat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
