@@ -26,8 +26,8 @@ If we were wanting to make a soap-film smoother for a boundary that does not hav
 
 #### Install [{soapcheckr}](https://github.com/dill/soap_checker)
 ```{r install soapcheckr, eval = FALSE}
-install.packages('soapcheckr', repos = c('https://benjaminhlina.r-universe.dev',
-                                         'https://cloud.r-project.org'))
+install.packages("devtools")
+devtools::install_github("dill/soapcheckr")
 ```
 
 #### Load packages 
