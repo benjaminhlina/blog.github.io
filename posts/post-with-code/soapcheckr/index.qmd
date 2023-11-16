@@ -211,7 +211,7 @@ bnd_pt <- bnd_pt_sf %>%
   )
 ```
 
-We now have a list of dataframes split by each polygon's x and y coordinates that have had the `id` column removed. We then need to create a vector that is `id` number of each polygon. In this case it's 1-5, we can use `length()` of our list o dataframes to easily create the end of our numerical vector. 
+We now have a list of dataframes split by each polygon's x and y coordinates that have had the `id` column removed. We then need to create a vector that is `id` number of each polygon. In this case it's 1-5, we can use `length()` of our list of dataframes to easily create the end of our numerical vector. 
 
 We will then iterate over our list and bind them all together to get our lists and lists of our polygon boundaries. 
 
@@ -261,7 +261,7 @@ lake_knots <- lake_intesects %>%
   dplyr::select(lon, lat)
 ```
 
-Now that we have our knots we can check to see if there are any knots that fall too close to the boundary using `soap_check()`
+Now that we have our knots we can check to see if there are any knots that fall too close to the boundary using `soap_check()`.
 ```{r check knots using soap_check}
 soap_check(sissabagama_bnd_ls, knots = lake_knots, 
            x_name = "lon", y_name = "lat")
@@ -277,7 +277,7 @@ crunch_ind
 # remove knots that are problematic
 lake_knots <- lake_knots[-crunch_ind, ] 
 ```
-Now that those knots have been removed we can recheck our knots using `soap_check()`
+Now that those knots have been removed we can recheck our knots using `soap_check()`.
 ```{r recheck knots}
 soap_check(sissabagama_bnd_ls, knots = lake_knots, 
            x_name = "lon", y_name = "lat")
