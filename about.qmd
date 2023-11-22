@@ -18,6 +18,6 @@ about:
       href: https://scholar.google.com/citations?user=upRdN9AAAAAJ&hl=en
 ---
 
-I am a fisheries scientist and programmer currently based at the [Great Lakes Institute for Environmental Research](https://www.uwindsor.ca/glier/) working fish spatial ecology and food web dynamics in Lake Ontario. This blog is an extension of my website and is where I host vignettes on a wide range of topics mostly focused on data applications for aquatic scientist. 
+I am a fisheries scientist and programmer currently based at the [Great Lakes Institute for Environmental Research](https://www.uwindsor.ca/glier/) working on fish spatial ecology and food web dynamics in Lake Ontario. This blog is an extension of my website and is where I host vignettes on a wide range of topics mostly focused on data applications for aquatic scientist. 
 
 If you're looking for data applications related to human-dimensions, sports business, and sports management please check out [Matthew Hlina](https://matthewhlina.github.io/website/)'s website. 
