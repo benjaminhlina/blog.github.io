@@ -1,6 +1,6 @@
 ---
 title: "Estimating Trophic Niches - {nicheROVER} and {ggplot2}"
-author: "Benjamin Hlina"
+author: "Benjamin L. Hlina"
 date: "2023-08-04"
 image: "1_ellispes_density_biplot.png"
 categories: [Stable Isotopes, Trophic Dynamics, Food Webs]

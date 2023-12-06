@@ -1,6 +1,6 @@
 ---
 title: "Shortest Paths Within a Boundary - {gdistance}"
-author: "Benjamin Hlina"
+author: "Benjamin L. Hlina"
 date: "2023-05-26"
 categories: [Spatial Analysis, Acoustic Telemetry, Movement]
 image: "4_big_sissabagama_lake_cost_dist.png"
