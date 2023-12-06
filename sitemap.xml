@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
+    <lastmod>2023-12-06T20:58:14.946Z</lastmod>
+  </url>
+  <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
-    <lastmod>2023-12-06T20:53:14.511Z</lastmod>
+    <lastmod>2023-12-06T20:58:13.606Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2023-12-06T20:53:13.027Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/find-ts-bnd/index.html</loc>
-    <lastmod>2023-12-06T20:53:11.523Z</lastmod>
+    <lastmod>2023-12-06T20:58:12.178Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2023-12-06T20:53:10.359Z</lastmod>
+    <lastmod>2023-12-06T20:58:10.922Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2023-12-06T20:53:10.895Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2023-12-06T20:53:12.351Z</lastmod>
+    <lastmod>2023-12-06T20:58:11.494Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2023-12-06T20:53:13.647Z</lastmod>
+    <lastmod>2023-12-06T20:58:12.762Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/find-ts-bnd/index.html</loc>
+    <lastmod>2023-12-06T20:58:14.174Z</lastmod>
   </url>
 </urlset>
