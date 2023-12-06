@@ -1,5 +1,5 @@
 ---
-title: "Animal to movement across a boundary"
+title: "Animal movement across a boundary"
 author: "Benjamin L. Hlina"
 date: "2023-12-06"
 image: "01_movement_outside_bnd.png"
