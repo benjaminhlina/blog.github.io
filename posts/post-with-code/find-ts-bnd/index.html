@@ -201,11 +201,11 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
   <ul>
   <li><a href="#our-objectives" id="toc-our-objectives" class="nav-link active" data-scroll-target="#our-objectives"><span class="header-section-number">0.1</span> Our Objectives</a></li>
   <li><a href="#load-packages-data-and-boundary" id="toc-load-packages-data-and-boundary" class="nav-link" data-scroll-target="#load-packages-data-and-boundary"><span class="header-section-number">0.2</span> load packages, data, and boundary</a></li>
-  <li><a href="#intial-plot-of-tracks" id="toc-intial-plot-of-tracks" class="nav-link" data-scroll-target="#intial-plot-of-tracks"><span class="header-section-number">0.3</span> Intial plot of tracks</a></li>
+  <li><a href="#intial-plot-of-movement" id="toc-intial-plot-of-movement" class="nav-link" data-scroll-target="#intial-plot-of-movement"><span class="header-section-number">0.3</span> Intial plot of movement</a></li>
   <li><a href="#create-our-from-and-to-data-frame" id="toc-create-our-from-and-to-data-frame" class="nav-link" data-scroll-target="#create-our-from-and-to-data-frame"><span class="header-section-number">0.4</span> Create our from and to data frame</a></li>
   <li><a href="#create-our-tracks-for-each-change-in-direction" id="toc-create-our-tracks-for-each-change-in-direction" class="nav-link" data-scroll-target="#create-our-tracks-for-each-change-in-direction"><span class="header-section-number">0.5</span> Create our tracks for each change in direction</a></li>
   <li><a href="#join-our-tracks-to-our-from-and-to-timestamps" id="toc-join-our-tracks-to-our-from-and-to-timestamps" class="nav-link" data-scroll-target="#join-our-tracks-to-our-from-and-to-timestamps"><span class="header-section-number">0.6</span> Join our tracks to our from and to timestamps</a></li>
-  <li><a href="#determine-which-movments-fall-outside-boundary" id="toc-determine-which-movments-fall-outside-boundary" class="nav-link" data-scroll-target="#determine-which-movments-fall-outside-boundary"><span class="header-section-number">0.7</span> Determine which movments fall outside boundary</a></li>
+  <li><a href="#determine-the-movments-that-fall-outside-the-boundary" id="toc-determine-the-movments-that-fall-outside-the-boundary" class="nav-link" data-scroll-target="#determine-the-movments-that-fall-outside-the-boundary"><span class="header-section-number">0.7</span> Determine the movments that fall outside the boundary</a></li>
   <li><a href="#plotting-tracks-that-cross-the-boundary" id="toc-plotting-tracks-that-cross-the-boundary" class="nav-link" data-scroll-target="#plotting-tracks-that-cross-the-boundary"><span class="header-section-number">0.8</span> Plotting tracks that cross the boundary</a></li>
   <li><a href="#cacluate-time-it-took-to-cross-the-boundary" id="toc-cacluate-time-it-took-to-cross-the-boundary" class="nav-link" data-scroll-target="#cacluate-time-it-took-to-cross-the-boundary"><span class="header-section-number">0.9</span> Cacluate time it took to cross the boundary</a></li>
   </ul>
@@ -219,7 +219,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 
 <section id="our-objectives" class="level3" data-number="0.1">
 <h3 data-number="0.1" class="anchored" data-anchor-id="our-objectives"><span class="header-section-number">0.1</span> Our Objectives</h3>
-<p>The purpose of the is vignette is to determine when (i.e., time stamps) and how long, an animal takes to cross a boundary (i.e., line or polygon). Specifically we want to identify the nodes on the track that straddle the boundary, and identify the time between nodes. The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) using satellite or acoustic telemetry. This vignette was inspired the the following <a href="https://twitter.com/spoonbill_hank/status/1731742735453880428">twitter post</a> and the initial ideas of how to solve this were inspired by the following <a href="https://www.jessesadler.com/post/network-analysis-with-r/">blog post</a> focused on network analysis by <a href="https://www.jessesadler.com/">Jesse Sadler</a>, and chunks of code were used from <a href="https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html">Shortest Paths Within a Boundary - {pathroutr}</a> and functions from <a href="https://github.com/dill/soapcheckr">{soapcheckr}</a>. Another interesting note is that this solution might be able to be solved with functions from <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a> and <a href="https://r-spatial.github.io/sftime/">{sftime}</a>. I don’t have much experience using either of those packages but they might provide an easier workflow to answer this problem.</p>
+<p>The purpose of the is vignette is to determine when (i.e., time stamps), where (i.e., nodes) and how long, an animal takes to cross a boundary (i.e., line or polygon). The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) using satellite or acoustic telemetry or a commercial fishing zone in Lake Michigan. This vignette was inspired the following <a href="https://twitter.com/spoonbill_hank/status/1731742735453880428">twitter post</a> with the initial ideas of a solution inspired by the following <a href="https://www.jessesadler.com/post/network-analysis-with-r/">blog post</a> focused on network analysis by <a href="https://www.jessesadler.com/">Jesse Sadler</a>. Additional chunks of code came from <a href="https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html">Shortest Paths Within a Boundary - {pathroutr}</a> and within functions in <a href="https://github.com/dill/soapcheckr">{soapcheckr}</a>. Another interesting note is that this problem might be able to be solved with functions from <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a> and <a href="https://r-spatial.github.io/sftime/">{sftime}</a>. I don’t have much experience using either of those packages but they might provide an easier workflow to answer this problem.</p>
 <p>You can download and unzip this vignette using the following code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
@@ -228,7 +228,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </section>
 <section id="load-packages-data-and-boundary" class="level3" data-number="0.2">
 <h3 data-number="0.2" class="anchored" data-anchor-id="load-packages-data-and-boundary"><span class="header-section-number">0.2</span> load packages, data, and boundary</h3>
-<p>We will first load all the packages we need, we will use <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a> to extract <code>lat</code> and <code>lon</code> of each change in direction and <a href="https://r-spatial.github.io/sf/">{sf}</a> to find the distances of those shortest paths.</p>
+<p>We will first load all the packages we need, we will use <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a> to extract <code>lat</code> and <code>lon</code> of each change in direction using <code>st_startpoint()</code> and <code>st_endpoint</code> and <a href="https://r-spatial.github.io/sf/">{sf}</a> to find tracks that cross our boundary.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
@@ -243,13 +243,13 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next we will bring in our example detection data for a single fish that tagged with a satellite telemetry transmitter</p>
+<p>Next we will bring in our example detection data for a single fish that was tagged with a satellite telemetry transmitter.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"example_movement_data.csv"</span>))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For initial plotting purposes we will transform our detection data into a <code>sf</code> object that is a compilation of all the movement into a <code>LINESTRING</code>. We will only use <code>dat_sf</code> for plotting not manipulation</p>
+<p>For initial plotting purposes we will transform our detection data into a <code>sf</code> object that is a compilation of all the movement into a <code>LINESTRING</code>. We will only use <code>dat_sf</code> for plotting not manipulation to answer this problem.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat_sf <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span> </span>
@@ -257,7 +257,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">do_union =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next we will bring in our example MPA shapefile as a <code>sf</code> object. For this exercise the boundary needs to be either a <code>LINESTRING</code> or <code>MULTILINESTRING</code> as <code>POLYGON</code> and <code>MULTIPOLYGON</code> will not work.</p>
+<p>Next we will bring in our example MPA shapefile as a <code>sf</code> object. For this exercise the boundary needs to be either a <code>LINESTRING</code> or <code>MULTILINESTRING</code> as <code>POLYGON</code> and <code>MULTIPOLYGON</code> will not work because the area inside the polygon is considered filled.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bnd <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="fu">here</span>(<span class="st">"data"</span>, </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"shapefile"</span>, </span>
@@ -266,8 +266,8 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">"MULTILINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="intial-plot-of-tracks" class="level3" data-number="0.3">
-<h3 data-number="0.3" class="anchored" data-anchor-id="intial-plot-of-tracks"><span class="header-section-number">0.3</span> Intial plot of tracks</h3>
+<section id="intial-plot-of-movement" class="level3" data-number="0.3">
+<h3 data-number="0.3" class="anchored" data-anchor-id="intial-plot-of-movement"><span class="header-section-number">0.3</span> Intial plot of movement</h3>
 <p>We will use <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">{ggplot2}</a> and <code>geom_sf()</code> to initially visualize our tracks.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
@@ -278,11 +278,11 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>We can notice that there are few times the fish moves outside the MPA and what we want to know is the location of the two nodes that the fish migrates outside the MPA and the time between the detections to know how long it took the fish to move outside the MPA.</p>
+<p>We can notice that there are few times the fish moves from outside to inside of the MPA or vis versa. We want to know the location of those two nodes and the time between the detections to know how long it took the fish to move from outside to inside and vis versa.</p>
 </section>
 <section id="create-our-from-and-to-data-frame" class="level3" data-number="0.4">
 <h3 data-number="0.4" class="anchored" data-anchor-id="create-our-from-and-to-data-frame"><span class="header-section-number">0.4</span> Create our from and to data frame</h3>
-<p>We need to take the detection data and split it up so that each subsequent detection time stamp, latitude, and longitude are in a separate column. We can do this by using either the <code>lag()</code> function from <a href="https://dplyr.tidyverse.org/">{dplyr}</a> or <a href="https://rdatatable.gitlab.io/data.table/">{data.table}</a>. We will also set the argument <code>default</code> to equal <code>first(variable)</code> so that when lagging back to the previous value the first time it doesn’t create a <code>NA</code> value.</p>
+<p>We need to take the detection data and split it up so that each subsequent detection timestamp, latitude, and longitude are in a separate column. We can do this by using the <code>lag()</code> function from either <a href="https://dplyr.tidyverse.org/">{dplyr}</a> or <a href="https://rdatatable.gitlab.io/data.table/">{data.table}</a>. We will also set the argument <code>default</code> for <code>dplyr::lag()</code> to equal <code>first(YOUR_VARIABLE_NAME)</code> so that when lagging back to the previous value the first time it lags back doesn’t create a <code>NA</code> value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>to_from <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -296,7 +296,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </section>
 <section id="create-our-tracks-for-each-change-in-direction" class="level3" data-number="0.5">
 <h3 data-number="0.5" class="anchored" data-anchor-id="create-our-tracks-for-each-change-in-direction"><span class="header-section-number">0.5</span> Create our tracks for each change in direction</h3>
-<p>Now that we have our to and from dataframe we are going to select the from and to’s lat and lons and make each movement a linestring using the supplied function above <code>make_line()</code>. We will then convert that into a complied <code>sf</code> object and extract the lons from the to and from portions of the <code>LINESTRING</code> using <code>st_startpoint()</code> and <code>st_endpoint()</code> from <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a>. We will add this as a column to our <code>sf</code> object and transform it to a <code>character</code> because the next step involves <code>left_join()</code> from <a href="https://dplyr.tidyverse.org/">{dplyr}</a> which cannot join based on a double precision numeric.</p>
+<p>Now that we have our to and from dataframe we are going to select the from and to’s lat and lons and make each movement a linestring using the supplied function above <code>make_line()</code>. We will then convert that into a complied <code>sf</code> object and extract the lons from each movement <code>LINESTRING</code> using <code>st_startpoint()</code> and <code>st_endpoint()</code> from <a href="https://r-spatial.github.io/lwgeom/">{lwgeom}</a>. We will add this as a column to our <code>sf</code> object and transform it to a <code>character</code> because the next step involves <code>left_join()</code> from <a href="https://dplyr.tidyverse.org/">{dplyr}</a> which cannot join based on a double precision numeric.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tracks_sf <span class="ot">&lt;-</span> to_from <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(lon, lat, llon,llat) <span class="sc">%&gt;%</span> </span>
@@ -319,13 +319,13 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </section>
 <section id="join-our-tracks-to-our-from-and-to-timestamps" class="level3" data-number="0.6">
 <h3 data-number="0.6" class="anchored" data-anchor-id="join-our-tracks-to-our-from-and-to-timestamps"><span class="header-section-number">0.6</span> Join our tracks to our from and to timestamps</h3>
-<p>First we need to make sure our to and from lons and lats are characters otherwise <code>left_join()</code> will not work. We will also select the columns we only need to join.</p>
+<p>First we need to make sure our to and from lons and lats are characters otherwise <code>left_join()</code> will not work. We will also select the columns we only need to join. If you want to know the location of each node you can select all from and to lats and lons.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>to_from_select <span class="ot">&lt;-</span> to_from <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(lon, lat, llon, llat), as.character)) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id, lon, llon, from_ts, to_ts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next we will <code>left_join()</code> our tracks <code>sf</code> object and our time stamps and fish id lastly we will drop the <code>lon</code> and <code>llon</code> columns as we no longer need them in our <code>sf</code> object</p>
+<p>Next we will <code>left_join()</code> our tracks <code>sf</code> object to our timestamps and fish id dataframe lastly we will drop the <code>lon</code> and <code>llon</code> columns as we no longer need them in our <code>sf</code> object unless you want the location of each from and to node.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tracks_sf <span class="ot">&lt;-</span> tracks_sf <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(to_from_select,</span>
@@ -333,17 +333,16 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"llon"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="determine-which-movments-fall-outside-boundary" class="level3" data-number="0.7">
-<h3 data-number="0.7" class="anchored" data-anchor-id="determine-which-movments-fall-outside-boundary"><span class="header-section-number">0.7</span> Determine which movments fall outside boundary</h3>
-<p>We can use a <code>st_intersects()</code> with the <code>sparse</code> argument set to <code>FALSE</code> which will produce a matrix of <code>TRUE</code> or <code>FALSE</code> depending on whether it intersects the boundary. To return a vector we add the <code>[TRUE]</code> at the end of the call of <code>st_intersects()</code></p>
+<section id="determine-the-movments-that-fall-outside-the-boundary" class="level3" data-number="0.7">
+<h3 data-number="0.7" class="anchored" data-anchor-id="determine-the-movments-that-fall-outside-the-boundary"><span class="header-section-number">0.7</span> Determine the movments that fall outside the boundary</h3>
+<p>We can use a <code>st_intersects()</code> with the <code>sparse</code> argument set to <code>FALSE</code>. This will produce a matrix of <code>TRUE</code> or <code>FALSE</code> depending on whether each <code>LINESTRING</code> intersects the boundary. To return a vector of <code>TRUE/FALSE</code> instead of a matrix we add the <code>[TRUE]</code> at the end of the call of <code>st_intersects()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tracks_sf <span class="ot">&lt;-</span> tracks_sf <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x_bnd =</span> <span class="fu">st_intersects</span>(bnd, tracks_sf, <span class="at">sparse =</span> <span class="cn">FALSE</span>)[<span class="cn">TRUE</span>]</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Congratulations we now have a column of <code>TRUE/FALSE</code> that lets us know whether or not the fish crossed the boundary.</p>
-<p>We can then filter out any movement that didn’t cross the boundary.</p>
+<p>Congratulations! We now have a column of <code>TRUE/FALSE</code> that lets us know whether or not the fish crossed the boundary. We can then filter out any movement that didn’t cross the boundary.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tracks_sf_x <span class="ot">&lt;-</span> tracks_sf <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(x_bnd <span class="sc">%in%</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -351,7 +350,7 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </section>
 <section id="plotting-tracks-that-cross-the-boundary" class="level3" data-number="0.8">
 <h3 data-number="0.8" class="anchored" data-anchor-id="plotting-tracks-that-cross-the-boundary"><span class="header-section-number">0.8</span> Plotting tracks that cross the boundary</h3>
-<p>We can use <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">{ggplot}</a> or <a href="https://r-spatial.github.io/mapview/">{mapview}</a> to view when the fish moved across the boundary. <a href="https://r-spatial.github.io/mapview/">{mapview}</a> is nice to create an interactive plot for exploration but for any type of publication or report you’ll more than likely need a static figure.</p>
+<p>We can use <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">{ggplot}</a> or <a href="https://r-spatial.github.io/mapview/">{mapview}</a> to view when the fish moved across the boundary. <a href="https://r-spatial.github.io/mapview/">{mapview}</a> is nice to create an interactive plot for exploration but for any type of publication or report you’ll more than likely need a static figure and can produce it using <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">{ggplot}</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> bnd, <span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
@@ -364,14 +363,15 @@ gtag('config', 'G-MGFSRVFVLF', { 'anonymize_ip': true});
 </section>
 <section id="cacluate-time-it-took-to-cross-the-boundary" class="level3" data-number="0.9">
 <h3 data-number="0.9" class="anchored" data-anchor-id="cacluate-time-it-took-to-cross-the-boundary"><span class="header-section-number">0.9</span> Cacluate time it took to cross the boundary</h3>
-<p>we can use the base function <code>difftime()</code> to get the time difference between our from and to detections to the know how long it took the fish migrate across the boundary.</p>
+<p>We can use the base function <code>difftime()</code> to get the time difference between our from and to detections. By calculating the time difference we now know the duration it took the fish to migrate across the boundary.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tracks_sf_x <span class="ot">&lt;-</span> tracks_sf <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_diff =</span> <span class="fu">difftime</span>(to_ts, from_ts)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You will notice that the difference in time is consistent as the example dataset use a manufactured sequence I created that is equally spaced. In your dataset this column should vary.</p>
+<p>You will notice that the difference in time in this example is consistent becasue the example dataset uses a manufactured sequence I created that is equally spaced . In your dataset this column should vary depending on how the fish moved.</p>
+<p>Congatulations! You have now determined when, where, and how long it took for a fish to migrate across a boundary.</p>
 
 
 </section>
