@@ -10,7 +10,7 @@ editor_options:
 
 ### Our Objectives
 
-The purpose of the is vignette is to determine when (i.e., time stamps), where (i.e., nodes) and how long, an animal takes to cross a boundary (i.e., line or polygon). The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) using satellite or acoustic telemetry or a commercial fishing zone in Lake Michigan. This vignette was inspired the following [twitter post](https://twitter.com/spoonbill_hank/status/1731742735453880428) with the initial ideas of a solution inspired by the following [blog post](https://www.jessesadler.com/post/network-analysis-with-r/) focused on network analysis by [Jesse Sadler](https://www.jessesadler.com/). Additional chunks of code came from [Shortest Paths Within a Boundary - {pathroutr}](https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html) and within functions in [{soapcheckr}](https://github.com/dill/soapcheckr). Another interesting note is that this problem might be able to be solved with functions from [{lwgeom}](https://r-spatial.github.io/lwgeom/) and [{sftime}](https://r-spatial.github.io/sftime/). I don't have much experience using either of those packages but they might provide an easier workflow to answer this problem. 
+The purpose of the is vignette is to determine when (i.e., time stamps), where (i.e., nodes) and how long, an animal takes to cross a boundary (i.e., line or polygon). The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) or a commercial fishing zone in Lake Michigan using satellite or acoustic telemetry data. This vignette was inspired the following [twitter post](https://twitter.com/spoonbill_hank/status/1731742735453880428) with the initial ideas of a solution inspired by the following [blog post](https://www.jessesadler.com/post/network-analysis-with-r/) focused on network analysis by [Jesse Sadler](https://www.jessesadler.com/). Additional chunks of code came from [Shortest Paths Within a Boundary - {pathroutr}](https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html) and within functions in [{soapcheckr}](https://github.com/dill/soapcheckr). Another interesting note is that this problem might be solved with functions from [{lwgeom}](https://r-spatial.github.io/lwgeom/) and [{sftime}](https://r-spatial.github.io/sftime/). I don't have much experience using either of those packages but they might provide an easier workflow to answer this problem. 
 
 
 You can download and unzip this vignette using the following code:
@@ -23,7 +23,7 @@ usethis::use_course("https://github.com/benjaminhlina/find-ts-bnd/archive/refs/h
 
 ### load packages, data, and boundary 
 
-We will first load all the packages we need, we will use [{lwgeom}](https://r-spatial.github.io/lwgeom/) to extract `lat` and `lon` of each change in direction using `st_startpoint()` and `st_endpoint` and [{sf}](https://r-spatial.github.io/sf/) to find tracks that cross our boundary. 
+We will first load all the packages we need, we will use [{lwgeom}](https://r-spatial.github.io/lwgeom/) to extract `lat` and `lon` of each change in direction using `st_startpoint()` and `st_endpoint()` and [{sf}](https://r-spatial.github.io/sf/) to find tracks that cross our boundary. 
 
 ```{r, message = FALSE, warning = FALSE}
 {
@@ -40,7 +40,7 @@ We will first load all the packages we need, we will use [{lwgeom}](https://r-sp
 }
 ```
 
-Next we will bring in our example detection data for a single fish that was tagged with a satellite telemetry transmitter.
+Next we will bring in our example detection data for a single fish that was tagged with a satellite or acoustic telemetry transmitter.
 
 ```{r, message = FALSE, warning = FALSE, results = 'hide'}
 dat <- read_csv(here("data", 
@@ -48,7 +48,7 @@ dat <- read_csv(here("data",
 glimpse(dat)
 ```
 
-For initial plotting purposes we will transform our detection data into a `sf` object that is a compilation of all the movement into a `LINESTRING`. We will only use `dat_sf` for plotting not manipulation to answer this problem. 
+For initial plotting purposes we will transform our detection data into a `sf` object that is a compilation of all the movements into a `LINESTRING`. We will only use `dat_sf` for plotting not manipulation to answer this problem. 
 
 ```{r}
 dat_sf <- dat %>% 
@@ -83,7 +83,7 @@ We can notice that there are few times the fish moves from outside to inside of 
 
 ### Create our from and to data frame     
 
-We need to take the detection data and split it up so that each subsequent detection timestamp, latitude, and longitude are in a separate column. We can do this by using the `lag()` function from either [{dplyr}](https://dplyr.tidyverse.org/) or [{data.table}](https://rdatatable.gitlab.io/data.table/). We will also set the argument `default` for `dplyr::lag()` to equal `first(YOUR_VARIABLE_NAME)` so that when lagging back to the previous value the first time it lags back doesn't create a `NA` value. 
+We need to take the detection data and split it up so that each subsequent detection timestamp, latitude, and longitude are in a separate column. We can do this by using the `lag()` function from either [{dplyr}](https://dplyr.tidyverse.org/) or [{data.table}](https://rdatatable.gitlab.io/data.table/). We will also set the argument `default` for `dplyr::lag()` to equal `first(YOUR_VARIABLE_NAME)` so when lagging back to the previous value for the first time, `lag()` does not create a `NA` value. 
 
 ```{r}
 to_from <- dat %>% 
@@ -98,7 +98,7 @@ to_from <- dat %>%
 
 ### Create our tracks for each change in direction 
 
-Now that we have our to and from dataframe we are going to select the from and to's lat and lons and make each movement a linestring using the supplied function above `make_line()`. We will then convert that into a complied `sf` object and extract the lons from each movement `LINESTRING` using `st_startpoint()` and `st_endpoint()` from [{lwgeom}](https://r-spatial.github.io/lwgeom/). We will add this as a column to our `sf` object and transform it to a `character` because the next step involves `left_join()` from [{dplyr}](https://dplyr.tidyverse.org/) which cannot join based on a double precision numeric. 
+Now that we have our to and from dataframe we are going to select the from and to latitudes and longitudes and make each movement a `LINESTRING` using the supplied function above `make_line()`. We will then convert that into a complied `sf` object and extract the longitudes from each movement `LINESTRING` using `st_startpoint()` and `st_endpoint()` from [{lwgeom}](https://r-spatial.github.io/lwgeom/). We will add this as a column to our `sf` object and transform it to a `character` because the next step involves `left_join()` from [{dplyr}](https://dplyr.tidyverse.org/) which cannot join based on a double precision numeric. 
 
 ```{r}
 tracks_sf <- to_from %>%
@@ -122,7 +122,8 @@ tracks_sf <- to_from %>%
 
 ### Join our tracks to our from and to timestamps 
 
-First we need to make sure our to and from lons and lats are characters otherwise `left_join()` will not work. We will also select the columns we only need to join. If you want to know the location of each node you can select all from and to lats and lons.   
+First we need to make sure our from and to latitudes and longitudes are characters otherwise `left_join()` will not work. We will also select the columns we only need to join. If you want to know the location of each node you can select all from and to latitudes and longitudes.
+
 ```{r}
 to_from_select <- to_from %>% 
   mutate(across(.cols = c(lon, lat, llon, llat), as.character)) %>% 
@@ -141,7 +142,7 @@ tracks_sf <- tracks_sf %>%
 
 ### Determine the movments that fall outside the boundary 
 
-We can use a `st_intersects()` with the `sparse` argument set to `FALSE`. This will produce a matrix of `TRUE` or `FALSE` depending on whether each `LINESTRING` intersects the boundary. To return a vector of `TRUE/FALSE` instead of a matrix we add the `[TRUE]` at the end of the call of `st_intersects()`.  
+We can use `st_intersects()` with the `sparse` argument set to `FALSE`. This will produce a matrix of `TRUE` or `FALSE` depending on whether each `LINESTRING` intersects the boundary. To return a vector of `TRUE/FALSE` instead of a matrix we add the `[TRUE]` at the end of the call of `st_intersects()`.  
 
 ```{r}
 tracks_sf <- tracks_sf %>% 
@@ -168,8 +169,8 @@ ggplot() +
   theme_void()
 ```
 
-### Cacluate time it took to cross the boundary 
-
+### Calculate time it took to cross the boundary 
+  
 We can use the base function `difftime()` to get the time difference between our from and to detections. By calculating the time difference we now know the duration it took the fish to migrate across the boundary. 
 
 ```{r}
@@ -179,6 +180,6 @@ tracks_sf_x <- tracks_sf %>%
   )
 ```
 
-You will notice that the difference in time in this example is consistent becasue the example dataset uses a manufactured sequence I created that is equally spaced . In your dataset this column should vary depending on how the fish moved. 
+You will notice that the difference in time in this example is consistent becasue the example dataset uses a manufactured sequence that is equally spaced. In your dataset this column should vary depending on how the fish moved. 
 
-Congatulations! You have now determined when, where, and how long it took for a fish to migrate across a boundary. 
+Congratulations! You have now determined when, where, and how long it took for a fish to migrate across a boundary! 
