@@ -10,7 +10,7 @@ editor_options:
 
 ### Our Objectives
 
-The purpose of the is vignette is to determine when (i.e., time stamps), where (i.e., nodes) and how long, an animal takes to cross a boundary (i.e., line or polygon). The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) or a commercial fishing zone in Lake Michigan using satellite or acoustic telemetry data. This vignette was inspired the following [twitter post](https://twitter.com/spoonbill_hank/status/1731742735453880428) with the initial ideas of a solution inspired by the following [blog post](https://www.jessesadler.com/post/network-analysis-with-r/) focused on network analysis by [Jesse Sadler](https://www.jessesadler.com/). Additional chunks of code came from [Shortest Paths Within a Boundary - {pathroutr}](https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html) and within functions in [{soapcheckr}](https://github.com/dill/soapcheckr). Another interesting note is that this problem might be solved with functions from [{lwgeom}](https://r-spatial.github.io/lwgeom/) and [{sftime}](https://r-spatial.github.io/sftime/). I don't have much experience using either of those packages but they might provide an easier workflow to answer this problem. 
+The purpose of this vignette is to determine when (i.e., time stamps), where (i.e., nodes) and how long, an animal takes to cross a boundary (i.e., line or polygon). The rational for wanting to determine time spent crossing a boundary could be multiple situations. For example, wanting to estimate the amount of time it took for a fish to migrate into or out of a marine protected area (MPA) or a commercial fishing zone in Lake Michigan using satellite or acoustic telemetry data. This vignette was inspired the following [twitter post](https://twitter.com/spoonbill_hank/status/1731742735453880428) with the initial ideas of a solution inspired by the following [blog post](https://www.jessesadler.com/post/network-analysis-with-r/) focused on network analysis by [Jesse Sadler](https://www.jessesadler.com/). Additional chunks of code came from [Shortest Paths Within a Boundary - {pathroutr}](https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html) and within functions in [{soapcheckr}](https://github.com/dill/soapcheckr). Another interesting note is that this problem might be solved with functions from [{lwgeom}](https://r-spatial.github.io/lwgeom/),  [{sftime}](https://r-spatial.github.io/sftime/), [{move}](https://bartk.gitlab.io/move/index.html), [{crawl}](https://github.com/NMML/crawl), [{aniMotum](https://ianjonsen.github.io/aniMotum/), [{trackeR}](https://cran.r-project.org/web/packages/trackeR/index.html), and [{sftracks}](https://mablab.org/sftrack/). I don't have much experience using either of those packages but they might provide an easier workflow to answer this problem. 
 
 
 You can download and unzip this vignette using the following code:
@@ -48,7 +48,7 @@ dat <- read_csv(here("data",
 glimpse(dat)
 ```
 
-For initial plotting purposes we will transform our detection data into a `sf` object that is a compilation of all the movements into a `LINESTRING`. We will only use `dat_sf` for plotting not manipulation to answer this problem. 
+For initial plotting purposes we will transform our detection data into a `sf` object that is a compilation of all the movements into a `LINESTRING`. We will only use `dat_sf` for visualization  and not data manipulation to answer this problem. 
 
 ```{r}
 dat_sf <- dat %>% 
@@ -83,7 +83,7 @@ We can notice that there are few times the fish moves from outside to inside of 
 
 ### Create our from and to data frame     
 
-We need to take the detection data and split it up so that each subsequent detection timestamp, latitude, and longitude are in a separate column. We can do this by using the `lag()` function from either [{dplyr}](https://dplyr.tidyverse.org/) or [{data.table}](https://rdatatable.gitlab.io/data.table/). We will also set the argument `default` for `dplyr::lag()` to equal `first(YOUR_VARIABLE_NAME)` so when lagging back to the previous value for the first time, `lag()` does not create a `NA` value. 
+We need to take the detection data and split it up so that each subsequent detection time stamp, latitude, and longitude are in a separate column. We can do this by using the `lag()` function from either [{dplyr}](https://dplyr.tidyverse.org/) or [{data.table}](https://rdatatable.gitlab.io/data.table/). We will also set the argument `default` for `dplyr::lag()` to equal `first(YOUR_VARIABLE_NAME)` so when lagging back to the previous value for the first time, `lag()` does not create a `NA` value. 
 
 ```{r}
 to_from <- dat %>% 
@@ -130,8 +130,7 @@ to_from_select <- to_from %>%
   dplyr::select(id, lon, llon, from_ts, to_ts)
 ```
 
-Next we will `left_join()` our tracks `sf` object to our timestamps and fish id dataframe
-lastly we will drop the `lon` and `llon` columns as we no longer need them in our `sf` object unless you want the location of each from and to node. 
+Next we will `left_join()` our tracks `sf` object to our timestamps and fish id dataframe lastly we will drop the `lon` and `llon` columns as we no longer need them in our `sf` object unless you want the location of each from and to node. 
 
 ```{r}
 tracks_sf <- tracks_sf %>% 
@@ -140,7 +139,7 @@ tracks_sf <- tracks_sf %>%
   dplyr::select(-c("lon", "llon"))
 ```
 
-### Determine the movments that fall outside the boundary 
+### Determine the movements that fall outside the boundary 
 
 We can use `st_intersects()` with the `sparse` argument set to `FALSE`. This will produce a matrix of `TRUE` or `FALSE` depending on whether each `LINESTRING` intersects the boundary. To return a vector of `TRUE/FALSE` instead of a matrix we add the `[TRUE]` at the end of the call of `st_intersects()`.  
 
@@ -180,6 +179,6 @@ tracks_sf_x <- tracks_sf %>%
   )
 ```
 
-You will notice that the difference in time in this example is consistent becasue the example dataset uses a manufactured sequence that is equally spaced. In your dataset this column should vary depending on how the fish moved. 
+You will notice that the difference in time in this example is consistent because the example dataset uses a manufactured sequence that is equally spaced. In your dataset this column should vary depending on how the fish moved. 
 
 Congratulations! You have now determined when, where, and how long it took for a fish to migrate across a boundary! 
