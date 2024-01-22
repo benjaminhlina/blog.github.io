@@ -257,13 +257,7 @@ Create a network graph that is bound by `land_region` and made up  Delaunay tria
 vis <- prt_visgraph(barrier = land_region)
 ```
 
-We can manipulate our network graph in several ways, the first is supplying the argument `aug_points` with the receiver location `sf object`. By doing so we add in triangles that will directly go to our receiver locations. However if you want to use this feature please install the forked version of [{pathroutr}](https://github.com/benjaminhlina/pathroutr) using the following code, as the original source currently does not support this feature. 
-
-```{r eval = FALSE}
-install.packages("devtools")
-devtools::install_github("benjaminhlina/pathroutr")
-```
-Secondly, we can use the argument `centroids` to add additional points within our network. 
+We can manipulate our network graph in several ways, the first is supplying the argument `aug_points` with the receiver location `sf object`. By doing so we add in triangles that will directly go to our receiver locations. Secondly, we can use the argument `centroids` to add additional points within our network. 
 
 Lastly, we can use the argument `buffer` to have paths be buffered from our land masses by a given distance in metres. We can visualize our network by first using the function `activate` from `{sfnetworks}`. 
 ```{r}
