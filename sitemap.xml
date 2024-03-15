@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2024-01-22T14:22:29.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
-    <lastmod>2024-01-22T14:22:28.801Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2024-01-22T14:22:27.277Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2024-01-22T14:22:25.413Z</lastmod>
-  </url>
-  <url>
     <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2024-01-22T14:22:26.417Z</lastmod>
+    <lastmod>2024-03-15T20:20:32.509Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nichetools/index.html</loc>
+    <lastmod>2024-03-15T20:20:32.517Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2024-01-22T14:22:27.921Z</lastmod>
+    <lastmod>2024-03-15T20:20:32.521Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
+    <lastmod>2024-03-15T20:20:32.517Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
+    <lastmod>2024-03-15T20:20:32.521Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/find-ts-bnd/index.html</loc>
-    <lastmod>2024-01-22T14:22:29.393Z</lastmod>
+    <lastmod>2024-03-15T20:20:32.509Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
+    <lastmod>2024-03-15T20:20:32.517Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/about.html</loc>
+    <lastmod>2024-03-15T20:20:32.509Z</lastmod>
   </url>
 </urlset>
