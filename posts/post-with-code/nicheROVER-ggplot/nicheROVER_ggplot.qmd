@@ -22,6 +22,10 @@ usethis::use_course("https://github.com/benjaminhlina/nicheROVER-ggplot-vignette
 ```
 
 
+### Disclaimer 
+
+Sections of this vignette have been replaced with the package [{nichetools}](https://benjaminhlina.github.io/nichetools/) which improves this workflow. I have written a vignette for the package that is available on the [package's website](https://benjaminhlina.github.io/nichetools/articles/how_to_use_nichetools.html) or on this [blog](https://blog.benjaminhlina.com/posts/post-with-code/nichetools/). I highly suggest using that workflow going forward. This vignette will not be taken down but will also not be maintained.  
+
 
 ### Bring in trophic niche data
 First we will load the necessary packages to preform the analysis and visualization. We will use [{nicheROVER}](https://cran.r-project.org/web/packages/nicheROVER/index.html) and [{ellipse}](https://cran.r-project.org/web/packages/ellipse/index.html) to preform the analysis. We will use [{dplyr}](https://dplyr.tidyverse.org/), [{purrr}](https://purrr.tidyverse.org/), and [{tidyr}](https://tidyr.tidyverse.org/) to manipulate data and iterate processes. Lastly, we will use [{ggplot2}](https://ggplot2.tidyverse.org/), [{ggtext}](https://wilkelab.org/ggtext/), and [{patchwork}](https://patchwork.data-imaginist.com/) to plot, add labels and arrange plots.
