@@ -235,7 +235,7 @@ glimpse(sample_detection_efficiency)
 
 ## Calculate distances
 
-Next we will use `detection_range_model()` to produce estimated distances for particular percentage (e.g., 50%). You will want to look through the help page for the function to make sure you're setting up the model correctly. 
+Next we will use `detection_range_model()` to produce estimated distances for particular percentage (e.g., 50%). You will want to look through the help page for the function to make sure you're setting up the model correctly.    
 
 Few additional tips: 
 

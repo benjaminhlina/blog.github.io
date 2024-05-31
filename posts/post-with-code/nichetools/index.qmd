@@ -60,7 +60,7 @@ We will then split the data frame into a list with each species as a data frame 
 ```{r, message = FALSE}
 fish_par <- df %>% 
   split(.$species) %>% 
-  map(~ select(., d15n, d13c)) %>% 
+  map(~ select(., d13c, d15n)) %>% 
   map(~ niw.post(nsample = nsample, X = .))
 ```
 
@@ -99,7 +99,7 @@ For plotting we will need the extracted $\Sigma$ values to be in long format. We
 
 ```{r, message = FALSE} 
 df_sigma_cn <- extract_sigma(fish_par, 
-                             format = "long") %>%
+                             data_format = "long") %>%
   filter(id != isotope)
 ```
 
