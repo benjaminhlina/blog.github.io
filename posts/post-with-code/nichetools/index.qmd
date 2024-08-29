@@ -1,8 +1,8 @@
 ---
-title: "How to use {nichetools}"
+title: "How to use {nichetools} with nicheROVER"
 author: "Benjamin L. Hlina"
 date: "2024-03-15"
-image: "hex_sticker.png"
+image: "1_ellipses_density_biplot.png"
 categories: [Stable Isotopes, Trophic Dynamics, Food Webs]
 editor_options: 
   chunk_output_type: inline
