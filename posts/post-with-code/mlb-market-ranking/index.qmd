@@ -56,7 +56,7 @@ glimpse(dat)
 dat <- dat %>%
   mutate(
     year = factor(year),
-    win_lose = factor(win_lose)
+    win_lose = factor(win_lose, level = c(1, 0))
   )
 
 # ---- plot ----
@@ -73,26 +73,23 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
                        group = win_lose)) +
   geom_line(linewidth = 0.9) +
   geom_hline(yintercept = 15) + 
-  geom_hline(yintercept = 10, linetype = 3) + 
   scale_color_viridis_d(begin = 0.4, end = 0.7, option = "A", name = "",
-                    label = c("Loser", "Winner"),
-                    na.value = "black") +
+                        direction = -1,
+                        label = c("Winner", "Looser"),
+                        na.value = "black") +
   scale_y_reverse(breaks = rev(seq(0, 30, 5))) +
   theme_bw(
     base_size = 15
   ) +
   theme(
-    legend.position = "inside",
-    legend.position.inside = c(0.07, 0.93),
-    panel.grid = element_blank(), 
     axis.text.x = element_text(angle = 90)
   ) +
   labs(
     x = "Year",
     y = "Market Ranking"
   )
-
-ggplotly(p)
+p
+# ggplotly(p)
 ```
 
 
