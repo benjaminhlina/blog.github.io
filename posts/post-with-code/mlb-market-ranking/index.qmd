@@ -26,7 +26,7 @@ world series even more exciting is if Ohtani was pitching!
 
 With this being said, there has been a lot of talk about can you buy yourself a world series considering 
 these two teams often have the highest payroll and whether that is a good or bad thing. 
-With this question in hand, everyone's favourite baseball guy, Jimmy aka JomBoy set to the task of answering just that. He put out this great video where he showed showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at figures, I figured I could make some figures to complement this video and the story Jimmy is providing. 
+With this question in hand, everyone's favourite baseball guy, [Jimmy aka JomBoy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://www.youtube.com/watch?v=JshCtBAhcts&t=741s) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at figures, I figured I could make some figures to complement this video and the story Jimmy is providing. 
 
 So lets first visualizer this data  
 
