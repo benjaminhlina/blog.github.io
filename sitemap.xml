@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.benjaminhlina.com/about.html</loc>
-    <lastmod>2024-09-20T12:18:58.029Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/detection-efficiency/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.030Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/find-ts-bnd/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.031Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
-    <lastmod>2024-09-20T12:18:58.044Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.046Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.029Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
-    <lastmod>2024-09-20T12:18:58.045Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nichetools-siber/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.038Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
-    <lastmod>2024-09-20T12:18:58.037Z</lastmod>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/mlb-market-ranking/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.609Z</lastmod>
   </url>
   <url>
     <loc>https://blog.benjaminhlina.com/posts/post-with-code/nichetools/index.html</loc>
-    <lastmod>2024-09-20T12:18:58.043Z</lastmod>
+    <lastmod>2024-10-23T17:31:11.625Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-gidstance/shortest_path_example_gdistance.html</loc>
+    <lastmod>2024-10-23T17:31:11.625Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nichetools-siber/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.617Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/nicheROVER-ggplot/nicheROVER_ggplot.html</loc>
+    <lastmod>2024-10-23T17:31:11.617Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/about.html</loc>
+    <lastmod>2024-10-23T17:31:11.609Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.609Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/shortest-path-pathroutr/shortest_path_example_pathroutr.html</loc>
+    <lastmod>2024-10-23T17:31:11.625Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/find-ts-bnd/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.609Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/detection-efficiency/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.609Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/index.html</loc>
+    <lastmod>2024-10-23T17:31:11.629Z</lastmod>
   </url>
 </urlset>
