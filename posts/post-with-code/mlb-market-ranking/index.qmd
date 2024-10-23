@@ -44,6 +44,7 @@ With this question in hand, everyone's favourite baseball guy, [Jimmy aka JomBoy
   library(dplyr)
   library(ggplot2)
   library(here)
+  library(htmlwidgets)
   library(readr)
   library(stringr)
   library(plotly)
@@ -63,7 +64,7 @@ glimpse(dat)
 dat <- dat %>%
   mutate(
     year = factor(year),
-    win_lose = factor(win_lose, level = c(1, 0))
+    win_lose = factor(win_lose, level = c(1, 0), labels = c("Winner", "Loser"))
   )
 
 # ---- plot ----
@@ -79,10 +80,11 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
                        colour = win_lose,
                        group = win_lose)) +
   geom_line(linewidth = 0.9) +
+   geom_hline(yintercept = 10, linetype = 3) + 
   geom_hline(yintercept = 15) + 
   scale_color_viridis_d(begin = 0.4, end = 0.7, option = "A", name = "",
                         direction = -1,
-                        label = c("Winner", "Loser"),
+                        label = c("Winner", "Loser", NA),
                         na.value = "black") +
   scale_y_reverse(breaks = rev(seq(0, 30, 5))) +
   theme_bw(
@@ -96,7 +98,18 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
     y = "Market Ranking"
   )
 # p
-ggplotly(p, tooltip = "y")
+ggplotly(p, tooltip = c("year", "win_lose", "market_rank")) %>% 
+  layout(hoverlabel = list(bgcolor = "white", font = list(size = 12))) %>%
+  style(hoverinfo = "text") %>%
+  layout(hovermode = "closest") %>% 
+  htmlwidgets::onRender("
+    function(el, x) {
+      var tooltip = el.querySelectorAll('.hovertext');
+      tooltip.forEach(function(d) {
+        d.textContent = d.textContent.replace('market_rank:', 'Market Rank:');
+      });
+    }
+  # ")
 ```
 
 
