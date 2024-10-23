@@ -3,32 +3,39 @@ title: "MLB - Market Ranking"
 author: "Benjamin L. Hlina"
 date: "2024-10-23"
 categories: [MLB, Generalized Linear Model]
+image: "figure_1.png"
 ---
 
-# Objective
+# Introduction
 
 This will be a little bit of different type of post than I normally do. Most of 
 stuff on this blog is related to fish and/or aquatic sciences and not sports but 
 something that I do thoroughly enjoy is baseball. I grew up playing baseball and played
-usually second base or shortstop. My dad loves baseball particular post season baseball
-I have fond memories of myself, him and my younger brother sitting around our tiny TV
+second base or shortstop. My dad loves baseball particular post season baseball
+I have fond memories of myself, him, and my younger brother sitting around our tiny TV
 watching the greats of the 1990s and 2000s, that to this day every October we all 
 chat about post season baseball and the thrill that it is. I could go on and on about 
 my love for the sport and specifically the post season but lets get to the point of this post. 
 
+# MLB 2024 Post-Season 
+
 The 2024 post season has been spectacular, so many great stories and games it's really 
-been a treat to watch. On top that we have the two best teams in the world series with
-some of the best players in the league and yet people are mad and upset by this. Why? 
-Sure it is nice to have an underdog to root for or teams that do not often make it like 
-my Minnesota Twins, but at the same time how cool is that we get to see two teams play each 
-other that haven't in over 40 years! On top of that, the only thing that would make this 
+been a treat to watch. On top of that we have the two best teams in the world series with
+some of the best players in the league and yet people are mad and upset by this. 
+
+Why? 
+
+Sure it is nice to have an underdog to root for or teams that do not often make it, like 
+my Minnesota Twins, but at the same time how cool is that we get two juggernauts who haven't played each 
+other in over 40 years! On top of that, the only thing that would make this 
 world series even more exciting is if Ohtani was pitching! 
 
 With this being said, there has been a lot of talk about can you buy yourself a world series considering 
 these two teams often have the highest payroll and whether that is a good or bad thing. 
-With this question in hand, everyone's favourite baseball guy, [Jimmy aka JomBoy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://www.youtube.com/watch?v=JshCtBAhcts&t=741s) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at figures, I figured I could make some figures to complement this video and the story Jimmy is providing. 
 
-So lets first visualizer this data  
+With this question in hand, everyone's favourite baseball guy, [Jimmy aka JomBoy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://www.youtube.com/watch?v=JshCtBAhcts&t=741s) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at visualizations, I figured I could make some figures to complement this video and the story Jimmy is providing. So lets visualize this data.
+
+# Market Ranking of World Series Teams
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE}
 # ---- bring in packages ----
@@ -75,7 +82,7 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
   geom_hline(yintercept = 15) + 
   scale_color_viridis_d(begin = 0.4, end = 0.7, option = "A", name = "",
                         direction = -1,
-                        label = c("Winner", "Looser"),
+                        label = c("Winner", "Loser"),
                         na.value = "black") +
   scale_y_reverse(breaks = rev(seq(0, 30, 5))) +
   theme_bw(
@@ -88,8 +95,8 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
     x = "Year",
     y = "Market Ranking"
   )
-p
-# ggplotly(p)
+# p
+ggplotly(p, tooltip = "y")
 ```
 
 
