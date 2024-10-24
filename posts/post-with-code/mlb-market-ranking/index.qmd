@@ -13,7 +13,7 @@ posts on this blog are related to fish and/or aquatic sciences and not sport rel
 I do thoroughly enjoy playing and watching sports, especially baseball. 
 I grew up playing baseball, second base and shortstop, and have fond memories of my dad, younger brother and myself sitting around our tiny TV watching the greats of the MLB in the 1990s and 2000s. Every October we all 
 chat about post-season baseball and the thrill that it is. I could go on and on about 
-my love for the sport, specifically the post-season, but lets get to the point of this post. 
+my love for the sport, specifically the post-season, but let us get to the point of this post. 
 
 # MLB 2024 Post-Season 
 
@@ -30,9 +30,11 @@ World Series even more exciting is if Ohtani was pitching!
 With this being said, there has been a lot of talk about can you buy yourself a World Series considering 
 these two teams often have the high payrolls and whether that is a good or bad thing. 
 
-With this question in hand, everyone's favourite baseball guy, [Jimmy aka Jomboy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://youtu.be/JshCtBAhcts?si=oo08ErLtydCPMYVl&t=445) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at visualizations, I figured I could make some figures to complement this video and the story Jimmy is providing. So lets visualize this data.
+With this question in hand, everyone's favourite baseball guy, [Jimmy aka Jomboy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://youtu.be/JshCtBAhcts?si=oo08ErLtydCPMYVl&t=445) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed from 1989 to 2024 the two teams that made it to the World Series, the team that won and that lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the least amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at visualizations, I figured I could make some figures to complement this video and the story Jimmy is providing. So lets visualize this data!
 
 # Market Ranking of World Series Teams
+
+Below is a an interactive figure of the market ranking of the winning and losing teams across years. The higher we go on the y-axis the better market rank. I have added a dotted line at the market rank of 10 and a solid line at the market rank of 15. 
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE}
 # ---- bring in packages ----
@@ -145,4 +147,8 @@ ggplotly(p1, tooltip = c("year", "win_lose", "market_rank")) %>%
   # ")
 ```
 
+As we can see there are only 4 years where the winner had a market ranking greater than 15, meaning these teams did not spend that much money, however, there is improved success in winning a Wold series if a team has a market ranking 10 or less. 
 
+So in conclusion, can you buy a World Series? It absolutely improves your ability to make it to the World Series and give you a better chance of winning, but doesn't guarantee a team winning.  
+
+So should we be mad about the Yankees and Dodgers being in the World Series, No, we are going to see some amazing baseaball or so I hope! 
