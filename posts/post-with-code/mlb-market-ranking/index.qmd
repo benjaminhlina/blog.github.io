@@ -66,6 +66,39 @@ dat <- dat %>%
 
 # ---- plot ----
 ```
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
+#| column: screen
+#| out-width: 100%
+#| fig-format: svg
+
+p <- ggplot(data = dat, aes(x = year, y = market_rank,
+                            colour = win_lose,
+                            group = win_lose)) +
+  geom_line(linewidth = 0.9) +
+  geom_hline(yintercept = 10, linetype = 3) + 
+  geom_hline(yintercept = 15) +
+  scale_color_viridis_d(begin = 0.4, end = 0.7, option = "A", name = "",
+                        direction = -1,
+                        label = c("Winner", "Loser"),
+                        na.value = "black") +
+  scale_y_reverse(breaks = rev(seq(0, 30, 5))) +
+  theme_bw(
+    base_size = 15
+  ) +
+  theme(
+    legend.position = "inside",
+    axis.text.x = element_text(angle = 90), 
+    
+    legend.position.inside = c(0.07, 0.13)
+  ) +
+  labs(
+    x = "Year",
+    y = "Market Ranking"
+  )
+p
+
+```
 
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
@@ -73,7 +106,7 @@ dat <- dat %>%
 #| column: screen
 #| out-width: 100%
 #| fig-format: svg
-p <- ggplot(data = dat, aes(x = year, y = market_rank,
+p1 <- ggplot(data = dat, aes(x = year, y = market_rank,
                        colour = win_lose,
                        group = win_lose)) +
   geom_line(linewidth = 0.9) +
@@ -95,7 +128,7 @@ p <- ggplot(data = dat, aes(x = year, y = market_rank,
     y = "Market Ranking"
   )
 # p
-ggplotly(p, tooltip = c("year", "win_lose", "market_rank")) %>% 
+ggplotly(p1, tooltip = c("year", "win_lose", "market_rank")) %>% 
   layout(hoverlabel = list(bgcolor = "white", font = list(size = 12))) %>%
   style(hoverinfo = "text") %>%
   layout(hovermode = "closest") %>% 
