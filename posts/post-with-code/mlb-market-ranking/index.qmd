@@ -63,10 +63,12 @@ glimpse(dat)
 dat <- dat %>%
   mutate(
     year = factor(year),
-    win_lose = factor(win_lose, level = c(1, 0), labels = c("Winner", "Loser"))
+    win_lose = factor(win_lose, level = c(1, 0), labels = c("Winner", "Loser")), 
+    custom_tooltip = paste("Year:", year, "<br>",
+                            "Market Rank:", market_rank, "<br>",
+                            "Status:", win_lose)
   ) %>% 
   filter(!(is.na(win_lose)))
-
 # ---- plot ----
 ```
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, eval = FALSE}
@@ -112,7 +114,8 @@ p
 #| fig-format: svg
 p1 <- ggplot(data = dat, aes(x = year, y = market_rank,
                        colour = win_lose,
-                       group = win_lose)) +
+                       group = win_lose,
+                       text = custom_tooltip)) +
   geom_line() +
    geom_hline(yintercept = 10, linetype = 3) + 
   geom_hline(yintercept = 15) + 
@@ -133,18 +136,18 @@ p1 <- ggplot(data = dat, aes(x = year, y = market_rank,
     y = "Market Ranking"
   )
 # p
-ggplotly(p1, tooltip = c("year", "win_lose", "market_rank")) %>% 
+ggplotly(p1, tooltip = "text") %>% 
   layout(hoverlabel = list(bgcolor = "white", font = list(size = 12))) %>%
   style(hoverinfo = "text") %>%
-  layout(hovermode = "closest") %>% 
-  htmlwidgets::onRender("
-    function(el, x) {
-      var tooltip = el.querySelectorAll('.hovertext');
-      tooltip.forEach(function(d) {
-        d.textContent = d.textContent.replace('market_rank:', 'Market Rank:');
-      });
-    }
-  # ")
+  layout(hovermode = "closest")
+  # htmlwidgets::onRender("
+  #   function(el, x) {
+  #     var tooltip = el.querySelectorAll('.hovertext');
+  #     tooltip.forEach(function(d) {
+  #       d.textContent = d.textContent.replace('market_rank:', 'Market Rank:');
+  #     });
+  #   }
+  # # ")
 ```
 
 As we can see there are only 4 years where the winner had a market ranking greater than 15, meaning these teams did not spend that much money, however, there is improved success in winning a Wold series if a team has a market ranking 10 or less. 
