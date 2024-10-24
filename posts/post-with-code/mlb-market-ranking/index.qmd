@@ -8,10 +8,10 @@ image: "figure_1.png"
 
 # Introduction
 
-This will be a little bit of different type of post than I normally do. Most of 
-posts on this blog are related to fish and/or aquatic sciences and not sports but 
+This will be a little bit of different type of post than I normally do. Most of the 
+posts on this blog are related to fish and/or aquatic sciences and not sport related but 
 I do thoroughly enjoy playing and watching sports, especially baseball. 
-I grew up playing baseball, second base and shortstop, and have fond memories of my dad, younger brother and myself sitting around our tiny TV watching the greats of MLB in the 1990s and 2000s. Every October we all 
+I grew up playing baseball, second base and shortstop, and have fond memories of my dad, younger brother and myself sitting around our tiny TV watching the greats of the MLB in the 1990s and 2000s. Every October we all 
 chat about post-season baseball and the thrill that it is. I could go on and on about 
 my love for the sport, specifically the post-season, but lets get to the point of this post. 
 
