@@ -160,19 +160,19 @@ ggplotly(p4, tooltip = "text") %>%
 
 ``` 
 
-As we can see there are only 8 years where the loosing team had a market ranking greater than 15, meaning these made it to the World Series and did not spend that much money, however, there is improved success in making it to a World series if a team has a market ranking 10 or less, or is in the top one-third teams in payroll. 
+As we can see there are only 8 years where the loosing team had a market ranking greater than 15, meaning these teams made it to the World Series and did not spend that much money, however, there is improved success in making it to a World series if a team has a market ranking 10 or less, or is in the top one-third teams in payroll. 
 
 # Conclusion 
 
 Can you buy a World Series? - somewhat. 
 
-It absolutely improves your ability to make it to the World Series giving a team a better chance of winning, but doesn't guarantee a team winning, no.  
+It absolutely improves the ability of a team to make it to the World Series giving a team a better chance of winning, but it doesn't guarantee a team winning. 
 
 So should we be mad about the Yankees and Dodgers being in the World Series. No, we are going to see some amazing baseball or so I hope!
 
 Enjoy the World Series everyone!  
 
-# Bonus - Statical Model
+# Bonus - Statistical Modelling 
 
 I often use statistical models to help answer questions about fish and aquatic ecosystems. So I'm going to apply the same approach here. 
 
