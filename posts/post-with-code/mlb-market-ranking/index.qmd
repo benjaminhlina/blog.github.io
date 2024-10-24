@@ -67,7 +67,7 @@ dat <- dat %>%
 
 # ---- plot ----
 ```
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
+```{r, echo = FALSE, message=FALSE, warning=FALSE, eval = FALSE}
 
 #| column: screen
 #| out-width: 100%
@@ -111,7 +111,7 @@ p
 p1 <- ggplot(data = dat, aes(x = year, y = market_rank,
                        colour = win_lose,
                        group = win_lose)) +
-  geom_line(linewidth = 0.9) +
+  geom_line() +
    geom_hline(yintercept = 10, linetype = 3) + 
   geom_hline(yintercept = 15) + 
   scale_color_viridis_d(begin = 0.4, end = 0.7, option = "A", name = "",
