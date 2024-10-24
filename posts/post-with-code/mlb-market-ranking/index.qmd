@@ -9,31 +9,28 @@ image: "figure_1.png"
 # Introduction
 
 This will be a little bit of different type of post than I normally do. Most of 
-stuff on this blog is related to fish and/or aquatic sciences and not sports but 
-something that I do thoroughly enjoy is baseball. I grew up playing baseball and played
-second base or shortstop. My dad loves baseball particular post season baseball
-I have fond memories of myself, him, and my younger brother sitting around our tiny TV
-watching the greats of the 1990s and 2000s, that to this day every October we all 
-chat about post season baseball and the thrill that it is. I could go on and on about 
-my love for the sport and specifically the post season but lets get to the point of this post. 
+posts on this blog are related to fish and/or aquatic sciences and not sports but 
+I do thoroughly enjoy playing and watching sports, especially baseball. 
+I grew up playing baseball, second base and shortstop, and have fond memories of my dad, younger brother and myself sitting around our tiny TV watching the greats of MLB in the 1990s and 2000s. Every October we all 
+chat about post-season baseball and the thrill that it is. I could go on and on about 
+my love for the sport, specifically the post-season, but lets get to the point of this post. 
 
 # MLB 2024 Post-Season 
 
-The 2024 post season has been spectacular, so many great stories and games it's really 
-been a treat to watch. On top of that we have the two best teams in the world series with
-some of the best players in the league and yet people are mad and upset by this. 
+The 2024 post-season has been spectacular. There have been so many great stories and games, it has really 
+been a treat to watch. On top of that we have the two best teams, the Yankees and the Dodgers, in the World Series with some of the best players in the league and yet people are mad and upset by this. 
 
 Why? 
 
 Sure it is nice to have an underdog to root for or teams that do not often make it, like 
 my Minnesota Twins, but at the same time how cool is that we get two juggernauts who haven't played each 
-other in over 40 years! On top of that, the only thing that would make this 
-world series even more exciting is if Ohtani was pitching! 
+other in over 40 years face off in the World Series! On top of that, the only thing that would make this 
+World Series even more exciting is if Ohtani was pitching! 
 
-With this being said, there has been a lot of talk about can you buy yourself a world series considering 
-these two teams often have the highest payroll and whether that is a good or bad thing. 
+With this being said, there has been a lot of talk about can you buy yourself a World Series considering 
+these two teams often have the high payrolls and whether that is a good or bad thing. 
 
-With this question in hand, everyone's favourite baseball guy, [Jimmy aka JomBoy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://www.youtube.com/watch?v=JshCtBAhcts&t=741s) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at visualizations, I figured I could make some figures to complement this video and the story Jimmy is providing. So lets visualize this data.
+With this question in hand, everyone's favourite baseball guy, [Jimmy aka Jomboy](https://www.jomboymedia.com/) set to the task of answering just that. He put out this [great video](https://youtu.be/JshCtBAhcts?si=oo08ErLtydCPMYVl&t=445) on [Talkin' Baseball](https://www.youtube.com/@TalkinBaseball), where he showed from 1989 to 2024 the two teams that made it to the world series, which team won and which lost, and their market rank, with 1 being the team that spent the most money and 30 being the team that spent the lowest amount of money. He did this in a table which was great, however, as a scientist and someone who loves looking at visualizations, I figured I could make some figures to complement this video and the story Jimmy is providing. So lets visualize this data.
 
 # Market Ranking of World Series Teams
 
