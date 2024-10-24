@@ -8,15 +8,17 @@ image: "figure_1.png"
 
 # Introduction
 
-This will be a little bit of a different type of post than I normally do. Most of the 
-posts on this blog are related to fish and/or aquatic sciences and are not sports related, but 
-I do thoroughly enjoy playing and watching sports, especially baseball. 
+This will be a different type of post than I normally write. 
+Most of the posts on this blog relate to fish and aquatic sciences and are not sports-related, 
+but I thoroughly enjoy playing and watching sports, especially baseball.
 
-I grew up playing baseball and played second base and shortstop. I have fond memories of my dad, younger brother, and myself sitting around our tiny TV watching the greats of the MLB in the 1990s and 2000s. Every October we  
-chat about the post-season and the thrill that it is. I could go on and on about 
-my love for the sport, specifically the post-season, but let us get to the point of this post. 
+I grew up playing baseball, primarily as a second baseman and shortstop. 
+I have fond memories of my dad, younger brother, and me sitting around 
+our tiny TV watching the greats of MLB in the 1990s and 2000s. 
+Every October, we chat about the postseason and the thrill it brings. 
+I could go on and on about my love for the sport, especially the postseason, but let’s get to the point of this post.
 
-# MLB 2024 Post-Season 
+# MLB 2024 Postseason
 
 The 2024 post-season has been spectacular. There have been so many great stories and games, and it has really 
 been a treat to watch. On top of that we have the two best teams, the Yankees and the Dodgers, in the World Series with some of the best players in the league and yet people are mad and upset by this. 
