@@ -61,7 +61,7 @@ dat <- dat %>%
     win_loses = factor(win_lose, level = c(1, 0), labels = c("Winner", "Loser")), 
     custom_tooltip = paste("Year:", year, "<br>",
                            "Market Rank:", market_rank, "<br>",
-                           "Status:", win_lose)
+                           "Status:", win_loses)
   ) %>% 
   filter(!(is.na(win_loses)))
 
