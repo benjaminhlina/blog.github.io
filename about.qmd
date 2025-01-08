@@ -4,9 +4,8 @@ image: IMG_7613.jpg
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/ben_hlina
+    - text: "{{< iconify simple-icons bluesky >}}"
+      href: https://bsky.app/profile/benjaminhlina.bsky.social
     - icon: wordpress
       text: Personal Website
       href: https://benjaminhlina.com
