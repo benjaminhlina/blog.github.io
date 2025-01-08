@@ -17,8 +17,8 @@ website:
         href: https://benjaminhlina.com
       - icon: github
         href: https://github.com/benjaminhlina
-      - icon: twitter
-        href: https://twitter.com/ben_hlina
+      - text: "{{< iconify simple-icons bluesky >}}"
+        href: https://bsky.app/profile/benjaminhlina.bsky.social
       - icon: mortarboard
         href: https://scholar.google.com/citations?user=upRdN9AAAAAJ&hl=en 
     
