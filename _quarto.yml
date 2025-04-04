@@ -8,6 +8,8 @@ project:
     
 website:
   title: "Blog"
+  site-url: https://blog.benjaminhlina.com  
+  reader-mode: true
   google-analytics: "G-MGFSRVFVLF"
   navbar:
     background: "#28535c"
@@ -23,6 +25,10 @@ website:
         href: https://scholar.google.com/citations?user=upRdN9AAAAAJ&hl=en 
       - text: R-bloggers
         href: https://www.r-bloggers.com
+      - icon: rss
+        href: index.xml
+        
+  
     
   
 format:
