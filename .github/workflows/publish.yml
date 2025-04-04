@@ -26,7 +26,9 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages:
+            any::BH
             any::broom.mixed
+            any::brms
             any::dplyr
             any::fitdistrplus
             any::gdistance
@@ -37,6 +39,7 @@ jobs:
             any::mgcv
             any::purrr
             any::raster
+            any::RcppEigen
             any::readr
             any::rmarkdown
             any::rvest
