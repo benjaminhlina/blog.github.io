@@ -4,6 +4,9 @@ author: "Benjamin L. Hlina"
 date: "2025-04-04"
 categories: [Stable Isotopes, Trophic Dynamics, Food Webs]
 image: "logo.png"
+feed: 
+    categories: 
+      - R
 ---
 
 ## Our Objectives

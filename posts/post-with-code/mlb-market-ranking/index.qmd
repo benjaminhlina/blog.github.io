@@ -4,6 +4,9 @@ author: "Benjamin L. Hlina"
 date: "2024-10-23"
 categories: [MLB, Generalized Additive Model]
 image: "figure_1.png"
+feed: 
+    categories: 
+      - R
 ---
 
 # Introduction

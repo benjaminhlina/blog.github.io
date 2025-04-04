@@ -4,6 +4,9 @@ author: "Benjamin L. Hlina"
 date: "2024-03-05"
 categories: [Acoustic Telemetry, GLATOS, Generalized Linear Model]
 image: "prelim_det_efficency.png"
+feed: 
+    categories: 
+      - R
 ---
 
 # Objectives
