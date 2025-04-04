@@ -21,6 +21,8 @@ website:
         href: https://bsky.app/profile/benjaminhlina.bsky.social
       - icon: mortarboard
         href: https://scholar.google.com/citations?user=upRdN9AAAAAJ&hl=en 
+      - text: R-bloggers
+        href: https://www.r-bloggers.com
     
   
 format:
